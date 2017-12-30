@@ -1,2 +1,0 @@
-# WCHLeetCode
-//LeetCode solutions
