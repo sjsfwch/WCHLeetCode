@@ -1,0 +1,10 @@
+//本题实质上是找出第一个不小于target的位置，时间复杂度(n)
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int i=0;
+        while(nums[i]<target&&i<nums.size())
+            i++;
+        return i;
+    }
+};
