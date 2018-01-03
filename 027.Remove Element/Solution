@@ -1,0 +1,13 @@
+//思路跟删除重复元素一样，时间复杂度O(n)
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int j=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]!=val)
+                nums[j++]=nums[i];
+        }
+        nums.resize(j); 
+        return nums.size();
+    }
+};
