@@ -1,0 +1,22 @@
+//
+class Solution {  
+public:  
+    int maxSubArray(int A[], int n) {  
+        int maxEndingHere = 0, maxSoFar;  
+        bool firstComp = true;  
+        for (int i = 0; i < n; i++)  
+        {  
+            maxEndingHere = max(maxEndingHere + A[i], A[i]);  
+            if (firstComp)  
+            {  
+                maxSoFar = maxEndingHere;  
+                firstComp = false;  
+            }  
+            else  
+            {  
+                maxSoFar = max(maxSoFar, maxEndingHere);  
+            }  
+        }  
+        return maxSoFar;  
+    }  
+}; 
