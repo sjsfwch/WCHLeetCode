@@ -1,16 +1,19 @@
-//
+//自己只能想到O(n^2)的算法
+//使用Kadane算法，时间复杂度为O(n)
+//算法的主要思路是：设置两个变量，一个是maxSoFar记录到目前为止的最大和，maxEndingHere记录截止到i处的前i项的最大子数列的和的最大值，
+//这样就能通过一次遍历，找出最大子数列的和
 class Solution {  
 public:  
-    int maxSubArray(int A[], int n) {  
+    int maxSubArray(vector<int>& nums) {  
         int maxEndingHere = 0, maxSoFar;  
-        bool firstComp = true;  
-        for (int i = 0; i < n; i++)  
+        bool first = true;  //用来判断是不是第一个数
+        for (int i = 0; i < nums.size(); i++)  
         {  
-            maxEndingHere = max(maxEndingHere + A[i], A[i]);  
-            if (firstComp)  
+            maxEndingHere = max(maxEndingHere + nums[i], nums[i]);  //截止到i处的最大值必然是前i-1个数中的最大子数列和与第i个数的和或第i项的值
+            if (first)                                              //精华
             {  
-                maxSoFar = maxEndingHere;  
-                firstComp = false;  
+                maxSoFar = maxEndingHere;   //对于第一个数maxSoFar = maxEndingHere
+                first = false;  
             }  
             else  
             {  
@@ -19,4 +22,4 @@ public:
         }  
         return maxSoFar;  
     }  
-}; 
+};
