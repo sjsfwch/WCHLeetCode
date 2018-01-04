@@ -1,0 +1,30 @@
+//由于给的是数组不是链表，直接做时间复杂度不可接受
+//考虑时间换空间的方法，申请一个新数组，把两个数组的数按序存进去，再将新数组的数赋给nums1，时空复杂度均为O(m+n)
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        if(n<=0) return;                 //先处理其中有个数组为空的情况
+        if(m<=0){
+            for(int p=0;p<n;p++)
+                nums1[p]=nums2[p];
+            return;
+        }
+        vector<int>numsmerge(m+n);
+        int i,j,k,x,y;
+        i=j=k=x=y=0;
+        while(i<m&&j<n){                   //两数组比较，较小的存到新数组，直至其中一个数组为空
+            if(nums1[i]<=nums2[j])
+                numsmerge[k++]=nums1[i++];
+            else
+                numsmerge[k++]=nums2[j++];
+        }
+        while(i<m)                        //若nums1不空
+            numsmerge[k++]=nums1[i++];
+        while(j<n)                        //若nums2不空
+            numsmerge[k++]=nums2[j++];
+        while(x<m+n)
+            nums1[x++]=numsmerge[y++];
+    }
+};
+
+//
