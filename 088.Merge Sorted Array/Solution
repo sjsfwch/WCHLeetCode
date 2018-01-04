@@ -27,4 +27,26 @@ public:
     }
 };
 
-//
+//优化解法，两数组合并后，长度为m+n，考虑倒着做，从nums1的第m+n项开始取较大值放入，这样也不会覆盖到nums1的值
+//时间复杂度为O(m+n)，但空间复杂度降为O(1)
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i=m-1,j=n-1,k=m+n-1;
+        while(k>=0){
+            if(i<0){
+                nums1[k--]=nums2[j--];
+                continue;
+            }
+            if(j<0){
+                nums1[k--]=nums1[i--];
+                continue;
+            }
+            if(nums1[i]>=nums2[j])
+                nums1[k--]=nums1[i--];
+            else
+                nums1[k--]=nums2[j--];
+        }
+        return;
+    }
+};
