@@ -1,0 +1,22 @@
+//本题实质上是求数列每项后面的值与当前值的差的最大值
+//本题与maximum subarray方法类似，设置3个变量maxSoFar,maxnum,minnun三个变量
+//maxSoFar用来记录遍历到第i项时的最大差值
+//maxnum用来记录遍历到第i项时，数据的最大值，更新时还需要进行maxnum-minnum与maxSoFar的比较
+//minnum用来记录遍历到第i项时，数据的最小值，由于是求数据后边的数与当前数据的最大差值，更新时需同步更新maxnum
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.empty()) return 0;
+        int maxnum,minnum,maxSoFar=0;
+        maxnum=minnum=prices.front();
+        for(int i=0;i<prices.size();i++){
+            if(prices[i]>maxnum){        //是否更新maxnum
+                maxnum=prices[i];
+                maxSoFar=max(maxnum-minnum,maxSoFar);
+            }
+            if(prices[i]<minnum)          //是否更新minnum
+                minnum=maxnum=prices[i];
+        }
+        return maxSoFar;
+    }
+};
