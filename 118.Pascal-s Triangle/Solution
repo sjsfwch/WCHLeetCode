@@ -1,0 +1,19 @@
+//先建立一个大小符合numRows的二维向量，所有值均为1
+//观察可知，当numRows<=2时，建立的矩阵符合要求，直接返回即可
+//当numRows>2时，需要修改从第3行起，每一行的除头尾之外的元素的值
+//修改公式为triangle[i][j]=triangle[i-1][j-1]+triangle[i-1][j]
+//时间复杂度为O(n^2)
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>>triangle;
+        for(int a=1;a<=numRows;a++)
+            triangle.push_back(vector<int>(a,1));      //初始化一个大小符合要求，元素值全为1的矩阵
+        if(numRows<=2) return triangle;            //符合要求直接返回
+        for(int i=2;i<numRows;i++){
+            for(int j=1;j<i;j++)
+                triangle[i][j]=triangle[i-1][j-1]+triangle[i-1][j];   //修改值
+        }
+        return triangle;
+    }
+};
