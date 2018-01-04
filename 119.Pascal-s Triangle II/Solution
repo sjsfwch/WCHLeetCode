@@ -1,0 +1,16 @@
+//若只用O(n)的空间复杂度，观察式子
+//杨辉三角的每一行的除首尾的第i项r[i]=r[i-1]+r[i]，后面的两项是上一行的值，递推有r[i+1]=r[i]+r[i+1]，可知r[i]被覆盖了
+//若从后往前推，有r[i-1]=r[i-2]+r[i-1]，可知r[i]被覆盖掉毫无影响
+//时间复杂度仍为O(n^2)
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int>triangleRow;
+        for(int i=0;i<=rowIndex;i++){
+            triangleRow.push_back(1);     //每次循环在尾部加1
+            for(int j=i-1;j>0;j--)        //从后往前递推
+                triangleRow[j]=triangleRow[j]+triangleRow[j-1];
+        }
+        return triangleRow;
+    }
+};
