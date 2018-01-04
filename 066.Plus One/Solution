@@ -1,0 +1,22 @@
+//本题比较简单，由于表头表示最高位，从数组最后一个数开始判定，分为9和其他情况，如果数据溢出还需在表头插入一个1
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int i=digits.size()-1;
+        int add=1;      //判断进位，初始是1，表示加1
+        while(i>=0&&add){
+            if(digits[i]==9){
+                digits[i]=0;
+                if(i==0){
+                    digits.insert(digits.begin(),1);   //数据“溢出”就插入一个1
+                }
+                i--;
+            }
+            else{
+                digits[i]++;
+                add=0;
+            }
+        }
+        return digits;
+    }
+};
