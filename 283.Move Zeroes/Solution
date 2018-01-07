@@ -1,0 +1,15 @@
+//思路跟删除重复元素一样
+//设置两个变量i,j，遍历nums，只有当nums[j]不等于0时，才nums[i++]=nums[j++]，否则j++
+//遍历结束后，从i开始，直至数组尾，将数组的值赋为0
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int i=0;
+        for(int j=0;j<nums.size();j++){
+            if(nums[j]!=0)           //不为0则将数值移动
+                nums[i++]=nums[j];
+        }
+        while(i<nums.size())
+            nums[i++]=0;
+    }
+};
