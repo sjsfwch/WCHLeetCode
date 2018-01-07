@@ -1,0 +1,22 @@
+//解法1，用跟Two Sum一样的思想，用map做，每遍历到一个数，查询其是否存在与map中，如果不存在，则插入，存在则说明存在重复数
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        map<int,int> table;
+        for(int i=0;i<nums.size();i++){
+            if(!table.count(nums[i]))      //不存在则插入
+                table.insert(pair<int,int>(nums[i],i));
+            else
+                return true;
+        }
+        return false;
+    }
+};
+
+//解2，用unordered_set做，对数组中的所有元素建立一个哈希表，如果哈希表中的元素少于数组中的，则说明有重复元素
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        return unordered_set<int>(nums.begin(), nums.end()).size() < nums.size();
+    }
+};
