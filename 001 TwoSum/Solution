@@ -17,7 +17,7 @@ public:
     }
 };
 
-/*学习其他大神的解法，考虑用unordered_map哈希表做，每次都判断当前数组索引位置的值在不在map里，不在的话，加入进去，key为数值，value为它的索引值
+/*学习其他大神的解法，考虑用unordered_map做，每次都判断当前数组索引位置的值在不在map里，不在的话，加入进去，key为数值，value为它的索引值
 如果target-当前值在哈希表里，查找其value=j，并返回当前数组索引值i和*/
 
 class Solution {  
