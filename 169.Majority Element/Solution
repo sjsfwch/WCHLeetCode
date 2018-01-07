@@ -1,0 +1,20 @@
+//最蠢的方法，排序然后返回中位数
+//O(n)时间复杂度的解法，由于主要元素必定存在，出现次数大于n/2次，因此我们可以设置一个计数变量counts，每次出现一个和mElement相同的数时
+//counts加1，否则减1，counts小于0时，mElement换成当前数组的值，counts归0，这样遍历一次数组，必定能找到主要元素
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int counts=0,mElement=nums[0];
+        for(int i=1;i<nums.size();i++){
+            if(mElement==nums[i])
+                counts++;
+            else
+                counts--;
+            if(counts<0){           //counts小于0时，更换mElement的值
+                mElement=nums[i];
+                counts=0;
+            }
+        }
+        return mElement;
+    }
+};
