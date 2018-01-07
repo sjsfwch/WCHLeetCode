@@ -1,0 +1,16 @@
+//由于set具有自动排序且不重复的特性，考虑用set做
+//维护一个set，每遍历一个数组元素，便将其插入进set，如果set中元素个数超过3，则删除开头元素
+//遍历完毕后，如果set中元素个数少于3，则返回最后一个元素，如果等于3，则返回第一个元素
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        set<int> sortednums;
+        set<int>::iterator it;
+        for(int i=0;i<nums.size();i++){
+            sortednums.insert(nums[i]);
+            if(sortednums.size()>3)                //如果大于3，则删除第一个元素
+                sortednums.erase(sortednums.begin());
+        }
+        return sortednums.size()==3? *sortednums.begin():*sortednums.rbegin();  //判断元素够不够3个
+    }
+};
