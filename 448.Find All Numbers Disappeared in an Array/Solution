@@ -1,0 +1,37 @@
+//很容易想到使用辅助数组标记数字是否出现的方法，时空复杂度均为O(n)
+//申请一个长度为nums.size()+1的数组，初值全为0，遍历nums，出现哪个数就将辅助数组该下标内的数置1
+//最后遍历辅助数组，元素为0则将该下标push_back进result，注意要排除第一项0
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        vector<int> numsA(nums.size()+1,0);
+        vector<int> result;
+        for(int i=0;i<nums.size();i++)     //将出现的数对应的辅助数组下标内的元素都置1
+            numsA[nums[i]]=1;
+        for(int i=1;i<numsA.size();i++){    //注意排除第一项，因为nums中不含0
+            if(numsA[i]==0)
+                result.push_back(i);
+        }
+        return result;
+    }
+};
+
+//优化算法
+//由于数组长度为n，数组内的元素在[1,n]间，第一次遍历，可以给数组做标记来做标记，如果j=nums[i]出现在了数组中，那么将nums[j-1]中的元素取为负数表示出现
+//第二次遍历，遇到正数，则将该下标+1加入result
+//非常值得学习
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        vector<int> result;
+        for(int i=0;i<nums.size();i++){
+            int j=abs(nums[i])-1;         //注意下标是从0开始的，而数从1开始
+            nums[j]=nums[j]>0?-nums[j]:nums[j];    //出现的数将其对应下标-1位置的数标记取负数
+        }
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>0)            //大于0的数说明没出现过
+                result.push_back(i+1);
+        }
+        return result;
+    }
+};
