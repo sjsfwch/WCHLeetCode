@@ -1,0 +1,42 @@
+//首先想到的是创建一个大小为n+1的辅助数组numsA，初值全为0
+//遍历nums，每遍历一个数就将numsA里对应的numsA[nums[i]]修改为1
+//结束遍历过后，遍历numsA找出值为0的下标，即为缺失的数，时空复杂度均为O(n)
+//很显然这不是最优解
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        vector<int> numsA(nums.size()+1,0);
+        for(int i=0;i<nums.size();i++)
+            numsA[nums[i]]=1;
+        for(int i=0;i<numsA.size()+1;i++){
+            if(numsA[i]!=1)
+                return i;
+        }
+    }
+};
+
+//优化解法
+//很容易求出给出的数组的和，0到n的和，两者相减，即为缺失的数,空间复杂度优化为O(1)
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int sumA=0,sum=(0+nums.size())*(nums.size()+1)/2;
+        for(int i=0;i<nums.size();i++)
+            sumA+=nums[i];
+        return sum-sumA;
+    }
+};
+
+//为了防止数据溢出，可用如下代码
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int sum = 0;
+        for(int i = 0; i < nums.size(); i++){    //边加边减，防止数据溢出（其实也可能溢出，如果大数据都在开头处的话）
+            sum += i;
+            sum -= nums[i];
+        }
+        sum += nums.size();
+        return sum;
+    }
+};
