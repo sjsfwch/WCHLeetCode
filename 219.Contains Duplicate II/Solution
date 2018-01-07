@@ -1,0 +1,38 @@
+//还是和Two Sum类似的思想来解，使用unordered_map，注意：nums[i]为key，i为value
+//对数组进行遍历，每遍历一个数，判断其是否存在于map中，不存在则插入，若存在，则查找其value，并与当前下标相减
+//若两者之差的绝对值小于等于k，则返回true，否则用当前下标更新value，继续循环。
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_map<int,int> table;
+        int i,j;
+        for(i=0;i<nums.size();i++){
+            if(!table.count(nums[i]))            //不存在则插入
+                table.insert(pair<int,int>(nums[i],i));
+            else{
+                j=table[nums[i]];    //查找value
+                if(abs(i-j)<=k)
+                    return true;
+                else
+                    table[nums[i]]=i;   //不符合用i更新value
+            }
+        }
+        return false;
+    }
+};
+
+//或者用unordered_set做，维护一个大小为k+1的table
+//遍历数组，每次都在table中查询是否有相同的元素，如果有返回true，如果没有则插入该元素
+//若table满了，则删除最先插入的元素后再插入当前元素
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_set<int> table;
+        for(int i=0;i<nums.size();i++){
+            if(i>k) table.erase(nums[i-k-1]);     //表满时，删除最先插入的元素
+            if(table.count(nums[i])) return true;
+            table.insert(nums[i]);
+        }
+        return false;
+    }
+};
