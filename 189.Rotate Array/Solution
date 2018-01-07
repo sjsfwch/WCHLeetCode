@@ -1,12 +1,10 @@
-//对于长度为n的数组，如果移位n次，结果相当于没移位，所以k>=n时，令k=k-n，直至k<n
-//观察可知，相当于3次翻转操作，第一次全部翻转，第二次[0,k)，第三次[k,n)
+//对于长度为n的数组，如果移位n次，结果相当于没移位，所以，令k=k%n
+//观察可知，相当于3次翻转操作，第一次全部翻转，第二次[0,k%n)，第三次[k%n,n)
 class Solution {
 public:
     void rotate(vector<int>& nums, int k) {
-        while(k>=nums.size())
-            k-=nums.size();
         reverse(nums.begin(),nums.end());
-        reverse(nums.begin(),nums.begin()+k);
-        reverse(nums.begin()+k,nums.end());
+        reverse(nums.begin(),nums.begin()+k%nums.size());
+        reverse(nums.begin()+k%nums.size(),nums.end());
     }
 };
