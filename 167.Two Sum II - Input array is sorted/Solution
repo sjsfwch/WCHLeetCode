@@ -1,4 +1,4 @@
-//第一种解法，用哈希表做，与Two Sum解法一样
+//第一种解法，用unordered_map做，与Two Sum解法一样
 //如果解法一样，显然失去了这题的意义，注意到数组是递增的，因此可以从头尾同时搜索，直到两者之和等于target
 //该解法时间复杂度为O(n)，空间复杂度为O(1)
 class Solution {
@@ -22,12 +22,12 @@ public:
 };
 
 
-//附上哈希表解法代码
+//附上unordered_map解法代码
 class Solution {
 public:
     vector<int> twoSum(vector<int>& numbers, int target) {
         vector<int> result;
-        map<int,int> hashtable;
+        unordered_map<int,int> hashtable;
         int i,j;
         for (i=0;i<numbers.size();i++){
             if(!hashtable.count(numbers[i]))
