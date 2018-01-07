@@ -40,3 +40,21 @@ public:
         return sum;
     }
 };
+
+//评论区看到一个有意思的解法，用异或，值得借鉴学习
+//再来说说异或的两个特性：顺序无关 / 对一个数异或两次等于没有异或。
+//顺序无关就是说异或的元素可以随意交换顺序，而不会影响结果。
+//对x异或两次相当于进行了一次加x和一次减x，结果没有任何变化
+//由此想到可以，设一个变量res，初值为nums.size（也就是n），然后对0到n-1,nums[0]到nums[n-1]进行异或，结果即为缺失的数
+//因为异或两次的数相当于没有异或
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int res=nums.size();       //省去专门对n异或
+        for(int i=0; i<nums.size(); i++){   //异或了两次的数相当于没有异或
+            res^=i;
+            res^=nums[i];
+        }
+        return res;
+    }
+};
