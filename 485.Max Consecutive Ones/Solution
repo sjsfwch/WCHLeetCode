@@ -1,0 +1,30 @@
+//使用两个变量存储全局最大连续1的个数和单词连续1的个数
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        int max1s=0,maxOnce=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==1){                 //等于1加1
+                maxOnce++;
+                max1s=max1s>maxOnce?max1s:maxOnce;     //更新max1s
+            }
+            else{
+                maxOnce=0;             //不等于1 maxOnce清零
+            }
+        }
+        return max1s;
+    }
+};
+
+//由于数组中只存在0,1，因此，可以通过乘nums[i]来判断当前数是0还是1。
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        int max1s=0,sum=0;
+        for(int i=0;i<nums.size();i++){
+            sum=(sum+nums[i])*nums[i];    //如果是1，则相当于加1，如果是0，则相当于清零
+            max1s=max1s<sum?sum:max1s;
+        }
+        return max1s;
+    }
+};
