@@ -1,0 +1,23 @@
+//此题可算是Two Sum的变种，同样使用map做
+//稍微有点不同，因为一对不能重复计数，所以我们先把所有数据插入map，遇到重复的数就使键值加一（防止k=0计数用的）
+//第二次遍历map，如果k=0，则统计所有键值大于1的数，k>与0，则每遍历一个数就查找table[i+k]是否存在，存在则计数加1
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+        if(k<0) return 0;
+        map<int,int> table;
+        int count=0;
+        for(int i=0;i<nums.size();i++){
+            if(!table.count(nums[i]))
+                table.insert(pair<int,int>(nums[i],1));
+            else
+                table[nums[i]]++;    //重复则键值加1
+        }
+        map<int,int>::iterator it;
+        for(it=table.begin();it!=table.end();it++){
+            if((!k&&it->second>1)||(k&&table.count(it->first+k)))          //针对k的取值，两种计数情况
+                count++;
+        }
+        return count;
+    }
+};
