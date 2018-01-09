@@ -1,0 +1,49 @@
+//很容易想到一种解法，将数组排序，然后计算最大值
+//最大值有两个可能、3个最大的正数或1个最大的正数和两个最小的负数
+//分别计算然后比较即可
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int max1,max2,n=nums.size();
+        max1=nums[0]*nums[1]*nums[n-1];
+        max2=nums[n-1]*nums[n-2]*nums[n-3];
+        return max1>max2?max1:max2;
+    }
+};
+
+//由于数组排序需要额外的时间，另一种思路
+//一次遍历找出最大的三个数和最小的两个数,然后计算两种不同可能的最大值，该算法时间复杂度为O(n)
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums) {
+        int fmax,smax,tmax,fmin,smin;
+        int max1,max2;
+        fmax=smax=tmax=INT_MIN;
+        fmin=smin=INT_MAX;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>=fmax){
+                tmax=smax;
+                smax=fmax;
+                fmax=nums[i];
+            }
+            else if(nums[i]>=smax){
+                tmax=smax;
+                smax=nums[i];
+            }
+            else if(nums[i]>=tmax){
+                tmax=nums[i];
+            }
+            if(nums[i]<=fmin){
+                smin=fmin;
+                fmin=nums[i];
+            }
+            else if(nums[i]<=smin){
+                smin=nums[i];
+            }
+        }
+        max1=fmax*smax*tmax;
+        max2=fmax*fmin*smin;
+        return max1>max2?max1:max2;
+    }
+};
