@@ -1,0 +1,19 @@
+//本题实际上是求连续k个数的最大和
+//可采用滑动窗口法，维持一个大小为k的窗口，不断计算窗口内的数据之和，记录最大值并返回其除以k的值
+class Solution {
+public:
+    double findMaxAverage(vector<int>& nums, int k) {
+        double sum=0,maxsum=INT_MIN;
+        for(int i=0;i<nums.size();i++){
+            if(i<k){                   //窗口不满时
+                sum+=nums[i];
+            }
+            else{
+                maxsum=maxsum<sum?sum:maxsum;   //判断最大值
+                sum+=nums[i]-nums[i-k];       //移动窗口
+            }
+        }
+        maxsum=maxsum<sum?sum:maxsum;   //判断最后一次
+        return maxsum/k;
+    }
+};
