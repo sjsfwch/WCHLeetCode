@@ -1,0 +1,22 @@
+//本题较为简单，只许遍历数组，遇到第一个失序元素时，将其改变，使有序，继续遍历，再次遇到失序元素时，返回false，否则返回true
+//难点在于如何改变失序元素，存在两种情况，如2,3,1和1,3,2
+//前者需要变为2,3,3 后者变为1,1,2
+//所以当a[i-1]<=a[1+1]时 令a[i]=a[i+1] 否则令a[i+1]=a[i]
+//注意 i==0时需要令a[i]=a[i+1]
+class Solution {
+public:
+    bool checkPossibility(vector<int>& nums) {
+        bool first=true;                   //判断是否是第一次失序
+        for(int i=0;i<nums.size()-1;i++){
+            if(nums[i]>nums[i+1]){
+                if(first){
+                    first=false;
+                    (nums[i-1]<=nums[i+1]||i==0)?(nums[i]=nums[i+1]):(nums[i+1]=nums[i]);  改变失序元素使其有序
+                }
+                else
+                    return false;
+            }
+        }
+        return true;
+    }
+};
