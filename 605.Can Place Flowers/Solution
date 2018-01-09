@@ -1,0 +1,17 @@
+//本题的难点在于如何处理头尾的元素
+class Solution {
+public:
+    bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+        flowerbed.insert(flowerbed.begin(),0);             //头尾其实相当于各有一个0，因此将其填上，便于处理
+        flowerbed.push_back(0);
+        for(int i=1; i < flowerbed.size()-1; i++)
+        {
+            if(flowerbed[i-1]+flowerbed[i]+flowerbed[i+1]==0)     //当有连续3个0的时候可以种上一棵
+            {
+                n--;
+                flowerbed[i]=1;           //种上一颗树，其实直接跳过，i++也可以
+            }
+        }
+        return n <=0;
+    }
+};
