@@ -1,0 +1,31 @@
+//最先想到的方法，用unordered_map，第一次出现时插入且键值为0，第二次改变键值为1，最后遍历整个map，找出键值为0的并输出key
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        unordered_map<int,int> table;
+        for(int i=0;i<nums.size();i++){
+            if(table.count(nums[i]))
+                table[nums[i]]=1;
+            else
+                table.insert(pair<int,int>(nums[i],0)); //注意用nums[i]作为key，方便查询
+        }
+        unordered_map<int,int>::iterator it;
+        for(it=table.begin();it!=table.end();it++){
+            if(it->second==0)
+                return it->first;
+        }
+    }
+};
+
+//巧用异或
+//第二个，用异或的方法，异或两次相当于没异或，所以将所有元素异或，结果即为出现一次的数
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int result=nums[0];
+        for(int i=1;i<nums.size();i++){
+            result^=nums[i];
+        }
+        return result;
+    }
+};
