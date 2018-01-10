@@ -1,0 +1,27 @@
+//本题的主要难点在于，如何判断循环并跳出
+//采用跑圈法，如果有两个人在一个圈上奔跑，跑得快的人一定会追上跑得慢的人
+//利用上面的特性判断循环并跳出
+class Solution {
+public:
+    int squareSum(int n){      //将数分解并求平方和
+        int sum=0,temp=0;
+        while(n){
+            temp=n%10;
+            sum+=temp*temp;
+            n/=10;
+        }
+        return sum;
+    }
+    
+    bool isHappy(int n) {
+        int fast,slow;
+        fast=slow=n;
+        do{
+            slow=squareSum(slow);   //跑得慢的人一次跑一步
+            fast=squareSum(fast);   //跑得快的人一次跑两步
+            fast=squareSum(fast);
+            if(fast==1) return true; //如果等于1，说明是快乐数，返回true
+        }while(slow!=fast);       //如果是循环，一定存在fast追上slow的那一刻，跳出循环并返回false
+        return false;
+    }
+};
