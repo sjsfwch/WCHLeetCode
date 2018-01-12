@@ -1,0 +1,18 @@
+//思路和求同分异构串的思路一样，不过这次需要先统计两串字母出现的总次数，再进行比较
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.size()!=t.size()) return false;
+        vector<int> ss(256,0);
+        vector<int> st(256,0);
+        for(int i=0;i<s.size();i++){    //统计两串字母出现的总次数
+            ss[s[i]]++;
+            st[t[i]]++;
+        }
+        for(int i=0;i<256;i++){    //比较各字符出现的次数是否相等
+            if(ss[i]!=st[i])
+                return false;
+        }
+        return true;
+    }
+};
