@@ -1,0 +1,21 @@
+//为了除去相同的字母，且便于第二个向量查找，考虑使用unordered_map
+//对第一个向量nums建立一个unordered_map，key为nums1[i]键值为0
+//遍历第二个向量nums2，每遍历一个，查找是否存在于table且键值为0，若是，输出且把键值改为1
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> table;
+        vector<int> res;
+        for(int i=0;i<nums1.size();i++){
+            if(!table.count(nums1[i]))
+                table.insert(pair<int,int>(nums1[i],0));
+        }
+        for(int i=0;i<nums2.size();i++){
+            if(table.count(nums2[i])&&table[nums2[i]]==0){    //避免重复
+                res.push_back(nums2[i]);
+                table[nums2[i]]=1;
+            }
+        }
+        return res;
+    }
+};
