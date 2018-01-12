@@ -1,0 +1,21 @@
+//思路跟上题一样，不过这次可以用键值来标记该数出现的次数；
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> table;
+        vector<int> res;
+        for(int i=0;i<nums1.size();i++){
+            if(!table.count(nums1[i]))
+                table.insert(pair<int,int>(nums1[i],1));
+            else
+                table[nums1[i]]++;         //出现多次键值增加
+        }
+        for(int i=0;i<nums2.size();i++){
+            if(table.count(nums2[i])&&table[nums2[i]]!=0){
+                res.push_back(nums2[i]);
+                table[nums2[i]]--;     //每出现一次，键值减一
+            }
+        }
+        return res;
+    }
+};
