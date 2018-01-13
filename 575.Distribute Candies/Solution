@@ -1,0 +1,27 @@
+//仍然是数学问题
+//存在两种情况糖果种类比糖果总数的一半多，那么妹妹可以每样拿一颗，最多可以拿糖果总数的一半多种
+//第二种情况，糖果种类比糖果总数的一半少，那么妹妹只能拿糖果种类多的种数了，不够的拿同样的糖果凑
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) {
+        int total=0;
+        unordered_map<int,int> table;
+        for(auto i:candies)   //统计糖果种类
+            table[i]++;
+        return table.size()>candies.size()/2?candies.size()/2:table.size();     //判断情况
+    }
+};
+
+//讨论区有个骚操作的代码，值得学习，用bitset
+int distributeCandies(vector<int>& candies) {
+        bitset<200001> hash;
+        int count = 0;
+        for (int i : candies) {         //通过bitset来标记糖果种类和统计糖果种类
+            if (!hash.test(i+100000)) {
+               count++;
+               hash.set(i+100000);
+            }
+        }
+        int n = candies.size();
+        return min(count, n/2);
+    }
