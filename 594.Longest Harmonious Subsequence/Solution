@@ -1,0 +1,17 @@
+//还是用unordered_map做，先将所有数据插入，重复的value+1
+//遍历table查找当前key+1后的数据是否存在，若存在，求两者value之和LHS
+//遍历整个table之后求得最大的LHS
+class Solution {
+public:
+    int findLHS(vector<int>& nums) {
+        int LHS=0;
+        unordered_map<int,int> table;
+        for(auto i:nums)
+            table[i]++;
+        for(auto it:table){
+            if(table.count(it.first+1))                  //两者之差为1
+                LHS=max(LHS,table[it.first+1]+it.second);
+        }
+        return LHS;
+    }
+};
