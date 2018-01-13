@@ -1,0 +1,22 @@
+//本题实际是数学问题，很容易知道，当一个字母出现偶数次时，必定可以全部出现在回文串中，出现奇数次时，可以取不大于该次数的最大偶数，也就是出现
+//次数减1，循环过后再加上1（中点字母可以随便）
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        unordered_map<char,int> table;
+        int len=0;
+        bool odd=false;
+        for(auto i:s){
+            table[i]++;      //全部插入进unordered_map,用键值标记出现次数
+        }
+        for(auto it : table){
+            if(it.second%2==0)    //若为偶数则全部加入
+                len+=it.second;
+            else{
+                len+=it.second-1; //否则次数减一加入
+                odd=true;
+            }
+        }
+        return odd?len+1:len;    //判断串中存不存在奇数次字母
+    }
+};
