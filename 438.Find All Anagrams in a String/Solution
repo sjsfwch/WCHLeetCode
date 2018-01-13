@@ -1,0 +1,23 @@
+//采用滑动窗口法，定义两个辅助向量s1,p1当s1==p1时，说明用的字符相同，是anagram
+//由于只有26个字母，可以通过-'a'来缩小辅助向量的规模，加快速度
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> s1(26,0),p1(26,0),res;
+        int np=p.size();
+        if(s.size()<np) return res;
+        for(int i=0;i<np;i++){         //预处理
+            s1[s[i]-'a']++;
+            p1[p[i]-'a']++;
+        }
+        if(s1==p1)
+            res.push_back(0);
+        for(int i=np;i<s.size();i++){   //滑动窗口并判断
+            s1[s[i-np]-'a']--;
+            s1[s[i]-'a']++;
+            if(s1==p1)                     若相等，则添加进res
+                res.push_back(i-np+1);
+        }
+        return res;
+    }
+};
