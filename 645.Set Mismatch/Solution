@@ -1,0 +1,21 @@
+//用前几题学到的bitset做，用0,1来标记数字是否出现
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        bitset<10001> table;
+        vector<int> res;
+        for(auto c:nums){
+            if(table.test(c))        //出现两次，说明是重复的数
+                res.push_back(c);
+            else
+                table.set(c);
+        }
+        for(int i=1;i<=nums.size();++i){    //找出未被标记的数，即未出现的数
+            if(!table.test(i))
+                res.push_back(i);
+        }
+        return res;
+    }
+};
+
+//另一种思路，异或
