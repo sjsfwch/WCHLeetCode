@@ -1,0 +1,25 @@
+//还是用unordered_map做
+//先将list1中的所有字符串插入table，然后遍历list2，找出匹配的最小下标和min，最后再次遍历list2，找出所有下标和等于min的字符串并加入res
+//其实遍历一次list2也可行，就是遇到等于min的下标和就加入res，遇到下标和比min更小的，清空res并将min更新
+class Solution {
+public:
+    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
+        vector<string> res;
+        int min=INT_MAX;
+        unordered_map<string,int> table;
+        for(int i=0;i<list1.size();++i)
+            table[list1[i]]=i;
+        for(int i=0;i<list2.size();++i){         //找出最小下标和
+            if(table.count(list2[i])){
+                if(min>=(i+table[list2[i]])){
+                    min=i+table[list2[i]];
+                }
+            }
+        }
+        for(int i=0;i<list2.size();++i){                       //找出等于最小下标和的所有串
+            if(table.count(list2[i])&&(table[list2[i]]+i==min))
+                res.push_back(list2[i]);
+        }
+        return res;
+    }
+};
