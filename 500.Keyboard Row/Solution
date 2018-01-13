@@ -1,0 +1,18 @@
+//最初的做法是建立三个unordered_set，分别代表1 2 3行，然后逐层查找，很蠢，没有新意
+//在讨论区看到个非常有趣的做法，值得学习，精华是str.find_first_of()==string::nops；如果str中的字符全部能找到，则两者不等
+//若不能都找到，则两者相等
+//需要好好了解c++11了 for(:)还有auto太好用了
+class Solution {
+public:
+    vector<string> findWords(vector<string>& words) {
+        vector<string> res;
+        for(auto str:words){
+            bool r1=str.find_first_of("QWERTYUIOPqwertyuiop")==string::npos?false:true;  //查找
+            bool r2=str.find_first_of("ASDFGHJKLasdfghjkl")==string::npos?false:true;
+            bool r3=str.find_first_of("ZXCVBNMzxcvbnm")==string::npos?false:true;
+            if(r1+r2+r3==1)        //若能找到
+                res.push_back(str);
+        }
+        return res;
+    }
+};
