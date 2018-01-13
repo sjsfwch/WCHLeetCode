@@ -1,0 +1,10 @@
+//还是妙用异或，由于字符都是以ASCII码的形式存储的，我们仍然可以用异或来求在两个串里只出现了一次的字符，异或两次相当于没异或
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        char r=0;
+        for(char c:s) r ^=c;       //for(:)循环 c++11新增，非常好用
+        for(char c:t) r ^=c;
+        return r;
+    }
+};
