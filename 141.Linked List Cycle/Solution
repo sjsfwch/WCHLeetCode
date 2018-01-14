@@ -1,0 +1,25 @@
+//采用跑圈法，设置两个指针遍历链表，一个一次行进2步，一个行进1步，如果快的追上慢的，则说明存在循环，如果遍历到空指针，则说明不存在循环
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode* fast=head;
+        ListNode* slow=head;
+        while(fast&&slow){
+            fast=fast->next;
+            if(!fast) return false;  //防止指针越界
+            fast=fast->next;
+            if(!fast) return false;
+            slow=slow->next;
+            if(fast==slow) return true;
+        }
+        return false;
+    }
+};
