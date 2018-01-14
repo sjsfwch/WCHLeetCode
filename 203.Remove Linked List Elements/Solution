@@ -1,0 +1,26 @@
+//跟删除重复元素一个思路
+//设置一个头结点处理起来会比较舒服
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode dummy(0);    //设置一个头结点
+        ListNode* p=&dummy;
+        ListNode* phead=p;
+        p->next=head;
+        while(p&&p->next){
+            if(p->next->val==val)        //遇到等于val的就跳过
+                p->next=p->next->next;  
+            else
+                p=p->next;
+        }
+        return phead->next; //由于题意不含头结点，所以返回头结点的next
+    }
+};
