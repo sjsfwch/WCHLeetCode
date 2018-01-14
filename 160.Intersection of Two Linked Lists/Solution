@@ -1,0 +1,46 @@
+//还是一道老题
+//主要思路就是先找出两个链表的长度，然后长的链表先遍历，直到剩余的长度和另一个链表一样
+//然后两个链表同时遍历，并比较val，相同时返回节点
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int lenA=0,lenB=0;
+        ListNode*pA=headA;
+        ListNode*pB=headB;
+        if(pA==NULL||pB==NULL) return pA==NULL?pA:pB;
+        while(pA){
+            ++lenA;
+            pA=pA->next;
+        }
+        while(pB){
+            ++lenB;
+            pB=pB->next;
+        }
+        int sub=lenA-lenB;
+        while(sub!=0){
+            if(sub>0){
+                headA=headA->next;
+                --sub;
+            }
+            else{
+                headB=headB->next;
+                ++sub;
+            }
+        }
+        while(headA&&headB){
+            if(headA->val==headB->val)
+                return headA;
+            headA=headA->next;
+            headB=headB->next;
+        }
+        return headA;
+    }
+};
