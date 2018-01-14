@@ -1,0 +1,43 @@
+//思路就是将链表的前半部分翻转同时遍历到到后半部分的第一个点，如果是奇数个，除去奇数点
+//然后前后部分同时遍历，看是否相同
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(!head) return true;
+        int len=0;
+        ListNode* p=head;
+        while(p){    //统计链表长度
+            ++len;
+            p=p->next;
+        }
+        ListNode newhead(0);
+        ListNode* q=head;
+        p=&newhead;
+        int halflen=len/2;
+        while(halflen!=0){    //翻转前半部分
+            q=head->next;
+            head->next=p->next;
+            p->next=head;
+            head=q;
+            --halflen;
+        }
+        if(len%2==1)
+            head=head->next;
+        q=p->next;
+        while(head){               //前后同时遍历，判断是否回文
+            if(q->val!=head->val)
+                return false;
+            head=head->next;
+            q=q->next;
+        }
+        return true;
+    }
+};
