@@ -1,0 +1,25 @@
+//翻转链表只需用头插法将左右元素插入即可
+//创建一个虚拟的头结点，使操作更加方便；
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode phead(0);
+        ListNode* p=&phead;
+        ListNode* q=head;
+        while(head){         //头插法
+            q=head->next;
+            head->next=p->next;
+            p->next=head;
+            head=q;
+        }
+        return p->next;
+    }
+};
