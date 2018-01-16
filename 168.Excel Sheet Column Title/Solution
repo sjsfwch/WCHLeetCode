@@ -1,0 +1,13 @@
+//跟数字翻转一个思路，不断取余
+class Solution {
+public:
+    string convertToTitle(int n) {
+        string res="";
+        while(n){
+            --n;           //ASCII码并不是1到26的循环，提前减1，为后面+'A'做准备。
+            res=char(n%26+'A')+res;
+            n/=26;
+        }
+        return res;
+    }
+};
