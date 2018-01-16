@@ -1,0 +1,12 @@
+//2的x次幂肯定能被2整除，将n不断的除2，每次都判断n%2的余数是不是1，如果是1返回false
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if(n<1) return false;
+        while(n>1){
+            if(n%2==1) return false;
+            n/=2;
+        }
+        return true;
+    }
+};  
