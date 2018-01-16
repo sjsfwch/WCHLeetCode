@@ -1,0 +1,43 @@
+//本题需要注意 string中的是字符'0',而非数字0,因此要注意处理
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int la=a.size()-1,lb=b.size()-1,c=0,r=0;
+        string res="";
+        while(la>-1&&lb>-1){
+            r=(a[la--]-'0'+b[lb--]-'0'+c)%2;
+            c=(a[la--]-'0'+b[lb--]-'0'+c)/2;
+            res=char(r+'0')+res;
+        }
+        while(la>-1){
+            r=(a[la--]-'0'+c)%2;
+            c=(a[la--]-'0'+c)/2;
+            res=char(r+'0')+res;
+        }
+        while(lb>-1){
+            r=(b[lb--]-'0'+c)%2;
+            c=(b[lb--]-'0'+c)/2;
+            res=char(r+'0')+res;
+        }
+        if(c>0)
+            res='1'+res;
+        return res;
+    }
+};
+
+
+//简化写法
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int la=a.size()-1,lb=b.size()-1,c=0;
+        string res="";
+        while(la>-1||lb>-1||c==1){
+            c+=(la>-1)?(a[la--]-'0'):0;      //若a串遍历完毕，则加0
+            c+=(lb>-1)?(b[lb--]-'0'):0;
+            res=char(c%2+'0')+res;
+            c/=2;
+        }
+        return res;
+    }
+};
