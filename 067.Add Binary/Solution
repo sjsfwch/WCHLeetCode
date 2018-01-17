@@ -1,3 +1,4 @@
+//本题需要注意 string中的是字符'0',而非数字0,因此要注意处理
 class Solution {
 public:
     string addBinary(string a, string b) {
