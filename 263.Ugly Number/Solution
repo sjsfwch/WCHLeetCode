@@ -1,0 +1,14 @@
+//此题给定的数字是否只含有2 3 5三个质因数，只需不断除2 3 5即可，若能整除到1，则是ugly number
+class Solution {
+public:
+    bool isUgly(int num) {
+        if(num==0) return false;
+        while(num%2==0)    //若能整除则除
+            num/=2;
+        while(num%3==0)
+            num/=3;
+        while(num%5==0)
+            num/=5;
+        return num==1;
+    }
+};
