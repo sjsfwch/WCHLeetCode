@@ -1,0 +1,12 @@
+//本题是纯数学问题，用牛顿法做即可
+//对于f(x)=x^2，求x^2=n的迭代式为  x=(x+n/x)/2
+class Solution {
+public:
+    int mySqrt(int x) {
+        double res=x,d=0.01;
+        while(fabs(res*res-x)>d){
+            res=(res+x/res)/2;
+        }
+        return (int)res;
+    }
+};
