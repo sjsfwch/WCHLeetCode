@@ -1,0 +1,24 @@
+//又是一道数据结构链表的经典问题
+//设置一个指针遍历整个链表，如果下一个点的值和当前点的值相等，则跳过下一个点
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* p=head;
+        while(p && p->next){
+            if(p->val==p->next->val){
+                p->next=p->next->next;
+            }
+            else
+                p=p->next;
+        }
+        return head;
+    }
+};
