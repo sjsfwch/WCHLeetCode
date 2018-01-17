@@ -1,0 +1,24 @@
+//首先想到的肯定是不断除3，看能否整除
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        if(n==0) return false;
+        while(n%3==0)
+            n/=3;
+        return n==1;
+    }
+};
+
+//第二个想到用对数解,对n取3的对数，看结果是否是整数
+//为什么用log10()而非log()
+//log(243) = 5.493061443340548    log(3) = 1.0986122886681098
+//   ==> log(243)/log(3) = 4.999999999999999
+//log10(243) = 2.385606273598312    log10(3) = 0.47712125471966244
+//   ==> log10(243)/log10(3) = 5.0
+
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        return fmod(log10(n)/log10(3), 1)==0;
+    }
+};
