@@ -1,0 +1,16 @@
+//之前做过一道差不多的题，无非就是不断相加取余(模10)
+//需要注意可能有进位
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        string s;
+        int sum=0,l1=num1.size()-1,l2=num2.size()-1;
+        while(l1>=0||l2>=0||sum==1){
+            sum+=(l1>=0)?(num1[l1--]-'0'):0;     //如果该串取完，就加0
+            sum+=(l2>=0)?(num2[l2--]-'0'):0;
+            s=char(sum%10+'0')+s;
+            sum/=10;
+        }
+        return s;
+    }
+};
