@@ -1,0 +1,16 @@
+//如果向量是空的，直接返回一个空串
+//令prefix=向量的第一个串，从向量的第二个元素开始遍历，寻找prefix和当前串的公共部分，然后擦去多余的
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if(strs.empty()) return "";
+        string prefix=strs[0];
+        for(int i=1;i<strs.size();++i){
+            int j=0;
+            while(j<strs[i].size()&&prefix[j]==strs[i][j]) ++j;      //寻找公共部分
+            prefix.erase(j);                   //擦除多余部分
+            if(prefix.empty()) return prefix;     //如果prefix为空，即可返回空串了
+        }
+        return prefix;
+    }
+};
