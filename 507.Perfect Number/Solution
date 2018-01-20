@@ -1,4 +1,5 @@
 //为了提高计算效率，由于num肯定是由两个数相乘得来，可以在找到一次整除时，将除数和商都加上，同时缩小循环的范围
+// https://en.wikipedia.org/wiki/List_of_perfect_numbers 所有完美数
 class Solution {
 public:
     bool checkPerfectNumber(int num) {
