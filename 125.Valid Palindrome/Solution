@@ -1,0 +1,35 @@
+//最初的做法是申请一个向量，将所有字母数字存进去，在判断是否是回文，可以通过-'a'和-'A'来不区分大小写
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        if(s.empty()) return true;
+        vector<int> table;
+        for(auto c:s){                 //存入向量
+            if(c>='a'&&c<='z')
+                table.push_back(c-'a');
+            if(c>='A'&&c<='Z')
+                table.push_back(c-'A');
+            if(c>='0'&&c<='9')
+                table.push_back(c);
+        }
+        for(int i=0,j=table.size()-1;i<=j;++i,--j){       //判断回文
+            if(table[i]!=table[j])
+                return false;
+        }
+        return true;
+    }
+};
+
+
+//学到了isalnum()函数，因此可以直接遍历string，不需要额外空间，还有toupper()直接将小写字母转换成大写字母
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        for(int i=0,j=s.size()-1;i<j;++i,--j){
+            while(isalnum(s[i])==false&&i<j) ++i;
+            while(isalnum(s[j])==false&&i<j) --j;
+            if(toupper(s[i])!=toupper(s[j])) return false;
+        }
+        return true;
+    }
+};
