@@ -1,0 +1,18 @@
+//为了提高计算效率，由于num肯定是由两个数相乘得来，可以在找到一次整除时，将除数和商都加上，同时缩小循环的范围
+class Solution {
+public:
+    bool checkPerfectNumber(int num) {
+        if(num==1) return false;
+        int sum=0,i=2,j=num/2;
+        while(i<j){                       //缩小循环的范围
+            if(num%i==0){            //能整除时，加上除数和商
+                j=num/i;
+                sum+=i;
+                sum+=j;
+            }
+            ++i;
+        }
+        ++sum;                   //加上1
+        return sum==num;
+    }
+};
