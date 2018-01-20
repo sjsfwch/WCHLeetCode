@@ -1,0 +1,9 @@
+//Emmmmmm直接用string.find()函数就可以做了
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int index;
+        index=haystack.find(needle);
+        return index==string::npos?-1:index;     //判断是否查找成功
+    }
+};
