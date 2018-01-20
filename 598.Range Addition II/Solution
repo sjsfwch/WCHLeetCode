@@ -1,0 +1,14 @@
+//由于每次都变动0<=i<a和0<=j<b的数，因此只需要找出ops矩阵中的行最小值和列最小值即可找出每次都增加的部分，相乘即可得到最大值的个数
+//注意，当ops为空时，M矩阵不做任何变换，因此最大值的个数即为M矩阵元素的个数
+class Solution {
+public:
+    int maxCount(int m, int n, vector<vector<int>>& ops) {
+        if(ops.empty()) return m*n;
+        int rmin=40000,cmin=40000;
+        for(int i=0;i<ops.size();++i){
+            rmin=min(rmin,ops[i][0]);         //第一列代表行变换
+            cmin=min(cmin,ops[i][1]);         //第二列代表列变换
+        }
+        return rmin*cmin;
+    }
+};
