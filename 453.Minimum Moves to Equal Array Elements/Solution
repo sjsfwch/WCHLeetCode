@@ -1,0 +1,13 @@
+//由于每次必须使n-1个数增1，因此如果经过m次自增所有数变成x，那么最小的数minnum每次都会增加，所以有m=x-minnum
+//又有，sum+m(n-1)=n*x  --->m=sum-n*min
+class Solution {
+public:
+    int minMoves(vector<int>& nums) {
+        int sum=0,minnum=INT_MAX;
+        for(auto i:nums){
+            sum+=i;
+            minnum=min(minnum,i);
+        }
+        return sum-minnum*nums.size();
+    }
+};
