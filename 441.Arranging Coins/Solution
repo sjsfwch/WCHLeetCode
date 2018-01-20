@@ -1,0 +1,22 @@
+//首先，最蠢的办法，累加，直到大于给定数字
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        int r=1;
+        long long sum=0;      //防止溢出
+        while(sum<=n){
+            sum+=r;
+            r++;
+        }
+        return r-2;     //减去多出的部分
+    }
+};
+
+//解方程组
+//1+2+3+...+x = n  ->x = -0.5 + sqrt(2n+0.25)
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        return floor(-0.5+sqrt((double)2*n+0.25));
+    }
+};
