@@ -1,0 +1,16 @@
+//最笨的办法是建立一个unordered_set，把所有小于sqrt(c)的数的平方插入，然后查找c-i*i是否在set里面
+//提高效率，使用两头查找的办法，从0和sqrt(c)区间开始，如果平方和大于c，右区间左移，反之左区间右移，若相等则返回true
+//若区间长度为0还未查找到相等的数，则返回false
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        int a=0,b=sqrt(c);
+        while(a<=b){
+            int sum=a*a+b*b;
+            if(sum<c) ++a;               //移动区间
+            else if(sum>c) --b;
+            else return true;
+        }
+        return false;
+    }
+};
