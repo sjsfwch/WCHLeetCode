@@ -1,0 +1,22 @@
+//压缩字符串，可以设置两个指针，i，j，运用数组里剔除重复数据这种思想解决
+//活用to_string
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int i=0,j=0;
+        while(j<chars.size()){
+            if(j==chars.size()-1||chars[j]!=chars[j+1])      //两字符不同时
+                chars[i++]=chars[j++];
+            else{
+                int start=j;                                  //相同时，保存第一个相同字符的起点
+                while(j<chars.size()&&chars[start]==chars[j])         //计算一共有多少个相同字符
+                    ++j;
+                chars[i++]=chars[start];          //字母先存进去
+                string temp=to_string(j-start);    //存储数字
+                for(auto c:temp)
+                    chars[i++]=c;
+            }
+        }
+        return i;
+    }
+};
