@@ -1,0 +1,12 @@
+//我感觉这个题目在搞事，我开始还以为是求最长不公共子串，后来发现，呵呵
+//讨论区全在骂
+class Solution {
+public:
+    int findLUSlength(string a, string b) {
+        if(a.size()!=b.size()) return max(a.size(), b.size());
+        else {
+            if(a!=b) return b.size();
+        }
+        return -1;
+    }
+};
