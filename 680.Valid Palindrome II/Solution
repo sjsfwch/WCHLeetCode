@@ -1,0 +1,21 @@
+//找到第一对不匹配的ij，要么i+1，要么j-1，都试一下即可
+class Solution {
+public:
+    bool validPalindrome(string s) {
+        int i=0,j=s.size()-1;
+        bool first=true,second=true;
+        while(i<j&&s[i]==s[j]){
+            ++i;
+            --j;
+        }
+        for(int ti=i+1,tj=j;ti<tj;++ti,--tj){    //左边跳过
+            if(s[ti]!=s[tj])
+                first=false;
+        }
+        for(int ti=i,tj=j-1;ti<tj;++ti,--tj){    //右边跳过
+            if(s[ti]!=s[tj])
+                second=false;
+        }
+        return first||second;
+    }
+};
