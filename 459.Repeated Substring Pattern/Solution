@@ -1,0 +1,31 @@
+//若整个串是由若干子串构成的，那么整串长度必定能整除子串长度，且商大于等于2
+//因此我们可以从中点向头搜索，找到第一个能被整除的子串，然后将若干子串连接起来，看是否等于整串
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        int n=s.size();
+        for(int i=n/2;i>=1;--i) {
+            if(n%i==0){                 //找到了最大能被整除子串长度
+                string t="";
+                int c=n/i;                 //倍数
+                for(int j=0;j<c;++j)
+                    t+=s.substr(0,i);     //连接子串
+                if(t==s) return true;
+            }
+        }
+        return false;
+    }
+};
+
+讨论区还有种基于kmp算法的方法
+
+    bool repeatedSubstringPattern(string str) {
+        int i = 1, j = 0, n = str.size();
+        vector<int> dp(n+1,0);
+        while( i < str.size() ){
+            if( str[i] == str[j] ) dp[++i]=++j;
+            else if( j == 0 ) i++;
+            else j = dp[j];
+        }
+        return dp[n]&&dp[n]%(n-dp[n])==0;
+    }
