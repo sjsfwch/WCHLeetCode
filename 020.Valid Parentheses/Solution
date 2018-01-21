@@ -1,0 +1,20 @@
+//堆栈经典问题，括号匹配，无须赘述
+class Solution {
+public:
+    bool isValid(string s) {
+        if(s.size()%2!=0) return false;         //若括号数目不是偶数，必然不匹配
+        stack<char> st;
+        for(auto c:s){
+            switch(c){
+                case '(': st.push(c); break;             //遇到左括号进栈
+                case '[': st.push(c); break;
+                case '{': st.push(c); break;
+                case ')': if(st.empty()||st.top()!='(') return false; else st.pop(); break;         //遇到右括号出栈并判断是否匹配
+                case ']': if(st.empty()||st.top()!='[') return false; else st.pop(); break;
+                case '}': if(st.empty()||st.top()!='{') return false; else st.pop(); break;
+                default: ;
+            }
+        }
+        return st.empty();
+    }
+};
