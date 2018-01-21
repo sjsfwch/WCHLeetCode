@@ -1,0 +1,19 @@
+//设置一个布尔型变量seg来确定遇到空格时，是否分段，还是连续空格
+class Solution {
+public:
+    int countSegments(string s) {
+        int count=0;
+        bool seg=false;
+        for(auto c:s){
+            if(!isspace(c))
+                seg=true;               //一段开始
+            else if(seg&&isspace(c)){       //一段结束
+                seg=false;
+                ++count;
+            }
+        }
+        if(seg)          //最后一段
+            ++count;
+        return count;
+    }
+};
