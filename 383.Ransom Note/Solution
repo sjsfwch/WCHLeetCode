@@ -1,0 +1,17 @@
+//用unordered_map做，将magazine所有字符插入，value为个数
+//遍历ransomNote，遇到能在map中找到的字符就value减一，若查找不到或value为0，返回false
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        unordered_map<char,int> table;
+        for(auto c:magazine)             //建立map
+            table[c]++;
+        for(auto c:ransomNote){                //查找
+            if(!table.count(c)||table[c]==0)
+                return false;
+            else
+                table[c]--;
+        }
+        return true;
+    }
+};
