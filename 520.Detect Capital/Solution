@@ -1,0 +1,14 @@
+//其实只有两种情况，小写字母后面不允许出现大写字母和除第一个字母外，大写字母后面不允许出现小写字母
+class Solution {
+public:
+    bool detectCapitalUse(string word) {
+        for(int i=1;i<word.size();++i)
+        {
+            if(isupper(word[i])&&islower(word[i-1]))
+                return false;
+            if(islower(word[i])&&isupper(word[i-1])&&i!=1)
+                return false;
+        }
+        return true;
+    }
+};
