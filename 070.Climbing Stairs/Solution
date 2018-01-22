@@ -1,0 +1,23 @@
+//反向思考，考虑最后一步只可能爬1级或者2级，那么爬n级的方法数就等于爬n-1级的方法数加爬n-2级的方法数
+//即f(n)=f(n-1)+f(n-2)，这是个菲波那切数
+//迭代求法
+class Solution {
+public:
+    int climbStairs(int n) {
+        if(n<3) return n;
+        vector<int> fib(n+1,0);
+        fib[1]=1;
+        fib[2]=2;
+        for(int i=3;i<n+1;++i)
+            fib[i]=fib[i-1]+fib[i-2];
+        return fib[n];
+    }
+};
+
+//直接用公式求
+int climbStairs(int n) {
+    n++;
+    double root5 = pow(5, 0.5);
+    double result = 1/root5*( pow((1+root5)/2, n) - pow((1-root5)/2, n) );
+    return (int)(result);
+}
