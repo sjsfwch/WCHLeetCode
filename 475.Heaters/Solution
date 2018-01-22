@@ -1,0 +1,41 @@
+//本来思路很简单，就是寻找每个房子离的最近的heater的最大距离，但是实现起来有点麻烦，逻辑不好理清楚
+//在讨论区看到一个想法，惊为天人，学习了一下
+/*
+Example:    h = house,  * = heater  M = INT_MAX
+
+        h   h   h   h   h   h   h   h   h    houses
+        1   2   3   4   5   6   7   8   9    index
+        *           *       *                heaters
+                
+        0   2   1   0   1   0   -   -   -    (distance to nearest RHS heater)
+        0   1   2   0   1   0   1   2   3    (distance to nearest LHS heater)
+
+        0   1   1   0   1   0   1   2   3    (res = minimum of above two)
+
+Result is maximum value in res, which is 3.
+*/
+class Solution {
+public:
+    int findRadius(vector<int>& houses, vector<int>& heaters) {
+        sort(houses.begin(),houses.end());
+        sort(heaters.begin(),heaters.end());
+        vector<int> res(houses.size(),INT_MAX);
+        for(int i=0,j=0;i<houses.size()&&j<heaters.size();){           //寻找最近右热源的距离
+            if(houses[i]<=heaters[j]){
+                res[i]=heaters[j]-houses[i];
+                ++i;
+            }
+            else
+                ++j;
+        }
+        for(int i=houses.size()-1,j=heaters.size()-1;i>=0&&j>=0;){   //寻找最近左热源的距离
+            if(houses[i]>=heaters[j]){
+                res[i]=min(res[i],houses[i]-heaters[j]);      //取左右热源的最小值
+                --i;
+            }
+            else
+                --j;
+        }
+        return *max_element(res.begin(), res.end());       //返回最大半径
+    }
+};
