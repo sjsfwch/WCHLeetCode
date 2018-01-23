@@ -1,0 +1,16 @@
+//将两个数组排序，然后同时遍历两个数组，每次分配给孩子一块最小的能满足他的饼干
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        int res=0;
+        for(int i=0,j=0;i<g.size()&&j<s.size();++j){
+            if(s[j]>=g[i]){          //分配给最小的能满足的饼干，以期后面更大的饼干分配给更贪婪的孩子，以获得最大满足数
+                ++res;
+                ++i;
+            }
+        }
+        return res;
+    }
+};
