@@ -1,0 +1,15 @@
+//此题跟求表达式的值一样，唯一的不同是+和D会造成新的得分，且该得分得入栈
+class Solution {
+public:
+    int calPoints(vector<string>& ops) {
+        int res=0,getscore=0;
+        vector<int> score;
+        for(auto s:ops){
+                if(s=="+"){res+=getscore=score.back()+score[score.size()-2];score.push_back(getscore);} //最后两次得分相加，新得分入栈
+                else if(s=="C"){res-=score.back();score.pop_back();}
+                else if(s=="D"){res+=getscore=2*score.back();score.push_back(getscore);}   //最后一次得分翻倍，且新的得分入栈
+                else {score.push_back(stoi(s));res+=stoi(s);}
+        }
+        return res;
+    }
+};
