@@ -1,0 +1,19 @@
+//利用栈来找nums中每一个数的下一个最大数，用unordered_map来存储
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
+        stack<int> s;
+        unordered_map<int,int> table;
+        for(auto n:nums){
+            while(s.size()&&s.top()<n){   //如果栈非空，且栈顶元素小于当前元素，说明下一个大数已找到，插入map，同时出栈，注意可能下一个数还
+                table[s.top()]=n;           //小于当前元素，所以使用循环
+                s.pop(); 
+            }
+            s.push(n);             //元素入栈
+        }
+        vector<int> res;
+        for(auto n:findNums)
+            res.push_back(table.count(n)?table[n]:-1);
+        return res;
+    }
+};
