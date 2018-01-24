@@ -1,0 +1,21 @@
+//递归的计算当前节点左子树到达叶节点的深度和右子树到达叶节点的深度，返回较小值
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(!root) return 0;      //空树为0
+        if(!root->left&&!root->right) return 1;    //递归基，如果是叶节点，则返回深度1
+        int ldepth=INT_MAX,rdepth=INT_MAX;
+        if(root->left) ldepth=minDepth(root->left)+1;      //计算左子树到达叶节点的深度
+        if(root->right) rdepth=minDepth(root->right)+1;    //计算右子树到达叶节点的深度
+        return min(ldepth,rdepth);       //返回较小值
+    }
+};
