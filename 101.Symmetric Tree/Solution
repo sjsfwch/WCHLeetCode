@@ -1,0 +1,26 @@
+//跟same tree差不多思路，不过需要自己写一个Judge函数
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool Judge(TreeNode* left,TreeNode* right){
+        if(!left||!right) return left==right;      //如果有一个节点为空，开始判断
+        return left->val==right->val&&Judge(left->left,right->right)&&Judge(left->right,right->left);
+    }                                                   //继续判断
+    bool isSymmetric(TreeNode* root) {
+        if(!root) return true;
+        return Judge(root->left,root->right);
+    }
+};
