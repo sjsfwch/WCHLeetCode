@@ -1,0 +1,13 @@
+//使用移位和与运算
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        uint32_t c=1;
+        int res=0;
+        while(n!=0){     //当n中还有1时
+            res+=n&c;    //判断最低位是否是1，若是，1的总数加一
+            n>>=1;       //右移一位
+        }
+        return res;
+    }
+};
