@@ -1,0 +1,27 @@
+//本质是树的层序遍历
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void LevelOrder(TreeNode* node,vector<vector<int>> &res,int level){
+        if(!node) return;
+        if(level==res.size())                //如果向量的元素个数等于层数，追加一个，以保存当前层的值
+            res.push_back(vector<int>());
+        res[level].push_back(node->val);        //层序遍历，添加层数来标记层数
+        LevelOrder(node->left,res,level+1);
+        LevelOrder(node->right,res,level+1);
+    }
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> res;
+        LevelOrder(root,res,0);
+        reverse(res.begin(),res.end());       //反转
+        return res;
+    }
+};
