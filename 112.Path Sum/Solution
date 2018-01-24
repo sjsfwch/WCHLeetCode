@@ -1,0 +1,18 @@
+//把sum减去当前节点的值，再递归的判断左右子树是否有路径和等于sum-val
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int sum) {
+        if(!root) return false;   //空节点返回false
+        if(!root->left&&!root->right) return sum==root->val;     //叶节点判断sum是否等于val，递归基
+        return hasPathSum(root->left,sum-root->val)|hasPathSum(root->right,sum-root->val); //递归判断左右子树是否有路径和等于sum-val
+    }
+};
