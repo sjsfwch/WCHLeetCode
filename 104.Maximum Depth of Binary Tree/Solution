@@ -1,0 +1,17 @@
+//递归求解
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;            //如果是空节点，高度为零
+        return max(maxDepth(root->left)+1,maxDepth(root->right)+1);  //取左右子树中的较大高度，注意要+1，因为包含了当前节点的高度
+    }
+};
