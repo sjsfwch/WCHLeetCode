@@ -1,0 +1,27 @@
+//本质上是使用递归算法先序遍历所有节点，只不过需要记录路径
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void bTP(TreeNode* root,vector<string>& res,string t){
+        if(!root->left&&!root->right){        //如果是叶节点，则t已经是完整路径，加入res
+            res.push_back(t);
+            return;
+        }
+        if(root->left) bTP(root->left,res,t+"->"+to_string(root->left->val));    //否则，遍历左右子树
+        if(root->right) bTP(root->right,res,t+"->"+to_string(root->right->val));
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> res;
+        if(!root) return res;
+        bTP(root,res,to_string(root->val));
+        return res;
+    }
+};
