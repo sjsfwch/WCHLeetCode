@@ -1,0 +1,17 @@
+//递归解决
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(!p||!q) return p==q;           //如果有一个节点为空或两者都为空 返回q==p
+        return p->val==q->val&&isSameTree(p->left,q->left)&&isSameTree(p->right,q->right);  //否则看值和左右子树是否相同
+    }
+};
