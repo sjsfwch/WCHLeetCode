@@ -1,0 +1,61 @@
+//还是动态规划，反过来想，考虑最后一次rob，只有两种可能，要么偷最后一家，要么偷倒数第二家
+//所以有rob(n)=max(rob(n-1),rob(n-2)+nums[n])
+//递推求法
+class Solution {
+public:
+    int robSoFar(vector<int>& nums,int end,vector<int>& robtable){
+        if(end<0) return 0;                       //递归基
+        else if(end==0) return nums[0];
+        else if(end==1) return max(nums[0],nums[1]);
+        int end1=0,end2=0;
+        if(robtable[end-1]!=-1) end1=robtable[end-1];             //查找rob(n-1)或者递归求出再赋值
+        else{end1=robSoFar(nums,end-1,robtable);robtable[end-1]=end1;}
+        if(robtable[end-2]!=-1) end2=robtable[end-2];
+        else{end2=robSoFar(nums,end-2,robtable);robtable[end-2]=end2;}
+        return max(end1,end2+nums[end]);
+    }
+    int rob(vector<int>& nums) {
+        vector<int> table(nums.size(),-1);        //用来存储到end为止偷到的金钱最大值，减少递归次数
+        return robSoFar(nums,nums.size()-1,table);
+    }
+};
+
+
+//迭代版
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if(nums.size()==0) return 0;
+        else if(nums.size()==1) return nums[0];
+        else if(nums.size()==2) return max(nums[0],nums[1]);
+        vector<int> robtable(nums.size(),0);        //辅助数组存储到i为止的偷盗金钱最大值
+        robtable[0]=nums[0];
+        robtable[1]=max(nums[0],nums[1]);
+        for(int i=2;i<nums.size();++i){
+            int robmax=max(nums[i]+robtable[i-2],robtable[i-1]);   //判断当前最大值
+            robtable[i]=robmax;
+        }
+        return robtable[nums.size()-1];
+    }
+};
+
+
+//讨论区有个大神的解法，比我的解法少了O(n)的空间复杂度，用ab分别存储到奇偶数项时的最大值
+int rob(int num[], int n) {
+    int a = 0;
+    int b = 0;
+    
+    for (int i=0; i<n; i++)
+    {
+        if (i%2==0)
+        {
+            a = max(a+num[i], b);
+        }
+        else
+        {
+            b = max(a, b+num[i]);
+        }
+    }
+    
+    return max(a, b);
+}
