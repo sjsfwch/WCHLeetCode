@@ -1,0 +1,28 @@
+//用位运算和或来实现，边或边移动
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        uint32_t c=0x00000000;
+        for(int i=0;i<31;++i){     //前31位
+            c|=(n&0x00000001);     //或上最后一位
+            c<<=1;
+            n>>=1;
+        }
+        c|=(n&0x00000001);     //最后一位单独处理，如果在循环内，会导致c多位移一次
+        return c;
+    }
+};
+
+//讨论区大佬的解法，太厉害了，值得学习
+//如 abcdefgh -> efghabcd -> ghefcdab -> hgfedcba
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        n = (n >> 16) | (n << 16);
+        n = ((n & 0xff00ff00) >> 8) | ((n & 0x00ff00ff) << 8);
+        n = ((n & 0xf0f0f0f0) >> 4) | ((n & 0x0f0f0f0f) << 4);
+        n = ((n & 0xcccccccc) >> 2) | ((n & 0x33333333) << 2);
+        n = ((n & 0xaaaaaaaa) >> 1) | ((n & 0x55555555) << 1);
+        return n;
+    }
+};
