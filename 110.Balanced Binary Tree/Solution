@@ -1,0 +1,22 @@
+//先递归的求解每个节点的高度
+//再递归的判断当前节点的左右子树高度差是否小于1和左右子树是否平衡
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int heightCount(TreeNode* root){
+        if(!root) return 0;
+        return max(heightCount(root->left),heightCount(root->right))+1; //求解当前节点的高度
+    }
+    bool isBalanced(TreeNode* root) {
+        if(!root) return true;
+        return abs(heightCount(root->left)-heightCount(root->right))<=1&&isBalanced(root->left)&&isBalanced(root->right);
+    }   //判断当前节点是否平衡且左右孩子节点是否平衡
+};
