@@ -1,0 +1,24 @@
+//每次都取数组的中点作为根节点，递归的构造左右子树
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* AtB(vector<int>& nums,int lo,int hi){
+        if(hi<=lo) return NULL;          //说明该段为空
+        int mid=lo+(hi-lo)/2;
+        TreeNode* root=new TreeNode(nums[mid]);
+        root->left=AtB(nums,lo,mid);         //递归构造左右子树，注意右区间为哨兵
+        root->right=AtB(nums,mid+1,hi);
+        return root;
+    }
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return AtB(nums,0,nums.size());
+    }
+};
