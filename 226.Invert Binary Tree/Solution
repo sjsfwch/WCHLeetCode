@@ -1,0 +1,23 @@
+//递归翻转，没什么好说的
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(!root) return NULL;
+        TreeNode* p=root->left;     //翻转以当前节点为根的树
+        TreeNode* q=root->right;
+        root->left=q;
+        root->right=p;
+        invertTree(p);         //翻转左右子树
+        invertTree(q);
+        return root;
+    }
+};
