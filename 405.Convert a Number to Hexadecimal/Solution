@@ -1,0 +1,16 @@
+//可以使用unsigned对num进行强制类型转换
+//利用HEX和n的低四位来判断0到f
+class Solution {
+public:
+    const string HEX = "0123456789abcdef";
+    string toHex(int num) {
+        if(num==0) return "0";
+        string res="";
+        unsigned n=num;
+        while(n){
+            res=HEX[n&0xF]+res;   //判断低4位是几
+            n>>=4;       //相当于除16
+        }
+        return res;
+    }
+};
