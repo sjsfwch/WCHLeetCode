@@ -1,0 +1,38 @@
+//用一个unordered_map存储节点的值和出现的次数，然后遍历map找出出现频率最大的值
+//感觉还有待优化，完全没用到bst的性质
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    unordered_map<int,int> table;
+    void Search(TreeNode* root){
+        if(!root) return;
+        table[root->val]++;
+        Search(root->left);
+        Search(root->right);
+        return;
+    }
+    vector<int> findMode(TreeNode* root) {
+        vector<int> res;
+        if(!root) return res;
+        Search(root);
+        int count=0;
+        for(auto i:table){
+            if(count==i.second)
+                res.emplace_back(i.first);
+            else if(count<i.second){
+                res.clear();
+                count=i.second;
+                res.emplace_back(i.first);
+            }
+        }
+        return res;
+    }
+};
