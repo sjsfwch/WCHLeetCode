@@ -1,0 +1,21 @@
+//递归求解
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int sumOfLeftLeaves(TreeNode* root) {
+        if(!root) return 0;
+        if(root->left&&!root->left->left&&!root->left->right)       //找到左叶子，返回左叶子的值和右子树中左叶子的值
+            return root->left->val+sumOfLeftLeaves(root->right);
+        else
+            return sumOfLeftLeaves(root->left)+sumOfLeftLeaves(root->right);    //递归的在左右子树中查找
+    }
+        
+};
