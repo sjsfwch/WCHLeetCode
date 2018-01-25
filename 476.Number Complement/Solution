@@ -1,0 +1,10 @@
+//主要是要找出num的基底，然后直接异或即可比如5就是7
+//用两者与起来是否等于0来判断，不等于0，左移
+class Solution {
+public:
+    int findComplement(int num) {
+        unsigned base=~0;
+        while(num&base) base<<=1;
+        return num^~base;
+    }
+};
