@@ -1,0 +1,25 @@
+//bst中序遍历有序，我们可以用中序遍历来做
+//中序遍历该树，用root->val-pre，找出最小值 
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void inOrder(TreeNode* root ,int& pre,int &m){
+        if(root->left!=NULL) inOrder(root->left,pre,m);
+        if(pre>=0) m=min(m,root->val-pre);     //确保 pre是树中节点的值
+        pre=root->val;
+        if(root->right!=NULL) inOrder(root->right,pre,m);
+    }
+    int getMinimumDifference(TreeNode* root) {
+        int m=INT_MAX,pre=-1;
+        inOrder(root,pre,m);
+        return m;
+    }
+};
