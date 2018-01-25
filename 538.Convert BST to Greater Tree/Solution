@@ -1,0 +1,26 @@
+//定义一个sum全局变量，按照RNL的顺序遍历bst，每次都将当前节点的值累加进sum，然后将sum的值赋给当前节点
+//本质是求按RNL顺序遍历的前n项和
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int sum=0;
+    void RNL(TreeNode* root){
+        if(root->right) RNL(root->right);
+        sum+=root->val;        //累加
+        root->val=sum;
+        if(root->left) RNL(root->left);
+    }
+    TreeNode* convertBST(TreeNode* root) {
+        if(!root) return root;
+        RNL(root);
+        return root;
+    }
+};
