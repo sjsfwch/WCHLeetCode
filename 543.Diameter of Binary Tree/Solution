@@ -1,0 +1,26 @@
+//显然，最大路径的长度肯定在两个叶子节点之间，且是某一树的左右子树高度
+//所以递归的求解根节点的左右子树高度之和，和根节点的左右子树的左右子树高度之和，找出最大值
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int m=0;
+    int maxHeight(TreeNode*root){        //求解左右子树最大高度
+        if(!root) return 0;
+        return max(maxHeight(root->left),maxHeight(root->right))+1;
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(!root) return 0;
+        m=max(m,maxHeight(root->left)+maxHeight(root->right));  //以当前节点为根节点的最大路径长度
+        m=max(m,diameterOfBinaryTree(root->left));              //递归
+        m=max(m,diameterOfBinaryTree(root->right));
+        return m;
+    }
+};
