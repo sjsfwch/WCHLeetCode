@@ -1,0 +1,19 @@
+//位操作的经典使用
+//异或找出两数之间不同的位
+//n&=n-1能计算出有多少个1，即不同两位的最大距离
+//Before we go into the while loop. n = 10101, dist = 0
+//Loop 1. dist = 1, n =10101 & 10100 = 10100
+//Loop 2. dist = 2, n =10100 & 10011 = 10000
+//Loop 3. dist = 3, n =10000 & (0)1111 = 0
+//Loop ends. dist = 3
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int d=0,n=x^y;
+        while(n){
+            ++d;
+            n&=(n-1);
+        }
+        return d;
+    }
+};
