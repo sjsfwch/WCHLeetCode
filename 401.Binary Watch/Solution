@@ -1,0 +1,17 @@
+//binary(h) = 10
+//binary(m) = 11
+//binary(h << 6) = 10000000 // shifts the value of h 6 positions to the left to make room for m
+//binary(h << 6 | m) = 10000011 // sets m on the first 6 bits
+//bitset<10>(h << 6 | m)  = [0, 0, 1, 0, 0, 0, 0, 0, 1, 1]
+bitset::count() 计算bitset中1的个数
+class Solution {
+public:
+    vector<string> readBinaryWatch(int num) {
+        vector<string> rs;
+        for (int h=0;h<12;h++)
+            for (int m=0;m<60;m++)
+                if (bitset<10>(h<<6|m).count()==num)    //精华，看等不等于亮灯数量
+                    rs.emplace_back(to_string(h)+(m<10?":0":":")+to_string(m));    //empalce_back效率高于push_back
+        return rs;
+    }
+};
