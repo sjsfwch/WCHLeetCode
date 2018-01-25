@@ -1,0 +1,20 @@
+//主要思路是定义一个向量，存储前n-1个数的和
+//那么i到j的和即为A[j+1]-A[i]
+class NumArray {
+private:
+    vector<int> psum;
+public:
+    NumArray(vector<int> nums):psum(nums.size()+1,0) {
+        partial_sum(nums.begin(),nums.end(),psum.begin()+1);
+    }
+    
+    int sumRange(int i, int j) {
+        return psum[j+1]-psum[i];
+    }
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * int param_1 = obj.sumRange(i,j);
+ */
