@@ -1,0 +1,19 @@
+//从area的开方开始进行双向查找
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        int L=sqrt(area),W=sqrt(area);
+        vector<int> res;
+        while(W>=1&&L<=area){        //双向查找
+            if(L*W==area)
+                break;
+            else if(L*W<area)
+                ++L;
+            else
+                --W;
+        }
+        res.emplace_back(L);
+        res.emplace_back(W);
+        return res;
+    }
+};
