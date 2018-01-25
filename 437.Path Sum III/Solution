@@ -1,0 +1,21 @@
+//这题查找的是部分路径，另写一个查找路径函数，可能以根节点为起点，也可能以左右孩子为起点
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int findPath(TreeNode* root,int sum,int pre){
+        if(!root) return 0;
+        return (sum==pre+root->val)+findPath(root->left,sum,pre+root->val)+findPath(root->right,sum,pre+root->val);
+    }
+    int pathSum(TreeNode* root, int sum) {
+        if(!root) return 0;
+        return findPath(root,sum,0)+pathSum(root->left,sum)+pathSum(root->right,sum);
+    }
+};
