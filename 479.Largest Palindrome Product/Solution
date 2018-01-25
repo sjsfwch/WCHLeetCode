@@ -1,0 +1,26 @@
+//穷举法，通过一些操作来降低时间复杂度
+//因为n位数乘n位数的积必定是2n位数，因此我们可以通过不断构造2n位回文数，并判断其是否是2个n位数的积来做
+class Solution {
+public:
+    long long buildPalindrome(int n){        //构造回文数
+        string t=to_string(n);
+        reverse(t.begin(),t.end());
+        return stoll(to_string(n)+t);
+    }
+    int largestPalindrome(int n) {
+        if(n==1) return 9;
+        int hi=pow(10,n)-1;
+        int lo=pow(10,n-1);
+        for(int i=hi;i>=lo;--i){
+            long c=buildPalindrome(i);
+            long s=sqrt(c);         //从回文数的开方出分两头查找
+            long start=s,end=s;
+            while(start>=lo&&end<=hi){          //分头查找
+                if(start*end==c) return c%1337;
+                else if(start*end<c) ++end;
+                else --start;
+            }
+        }
+        return -1;
+    }
+};
