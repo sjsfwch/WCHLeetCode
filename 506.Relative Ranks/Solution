@@ -1,0 +1,20 @@
+//使用优先队列来排序，并用pair(nums[i],i)来标记得分和在原数组中的顺序
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& nums) {
+        priority_queue<pair<int,int>> rq;
+        for(int i=0;i<nums.size();++i)
+            rq.push(make_pair(nums[i],i));
+        vector<string> res(nums.size());
+        int rank=1;
+        while(!rq.empty()){
+            if(rank==1) res[rq.top().second]="Gold Medal";        //保证原来的顺序
+            else if(rank==2) res[rq.top().second]="Silver Medal";
+            else if(rank==3) res[rq.top().second]="Bronze Medal";
+            else res[rq.top().second]=to_string(rank);
+            ++rank;
+            rq.pop();
+        }
+        return res;
+    }
+};
