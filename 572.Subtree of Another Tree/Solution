@@ -1,0 +1,25 @@
+//一个Judge函数来判断两颗树是否相同
+//当两个节点的值相同时，调用Judge，否则递归的查询左右子树
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool Judge(TreeNode* p,TreeNode* q){
+        if(!p||!q) return p==q;
+        return p->val==q->val&&Judge(p->left,q->left)&&Judge(p->right,q->right);
+    }
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        if(!s) return false;
+        if(s->val==t->val)         //值相同时调用Judge
+            if(Judge(s,t))
+                return true;
+        return isSubtree(s->left,t)||isSubtree(s->right,t);  //递归查找左右子树
+    }
+};
