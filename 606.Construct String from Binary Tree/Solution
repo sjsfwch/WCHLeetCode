@@ -1,0 +1,30 @@
+//很明显，采用先序遍历即可做出
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    string s="";
+    void NLR(TreeNode* t){
+        if(!t) return;       //空节点直接返回
+        s+=to_string(t->val);
+        if(!t->left&&!t->right) return;    //叶节点，返回
+        s+="(";                        //无左孩子但有右孩子的话需要加一个空括号
+        NLR(t->left);
+        s+=")";
+        if(!t->right) return;     //无右孩子，返回
+        s+="(";
+        NLR(t->right);
+        s+=")";
+    }
+    string tree2str(TreeNode* t) {
+        NLR(t);
+        return s;
+    }
+};
