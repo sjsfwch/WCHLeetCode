@@ -1,0 +1,18 @@
+//定义两个变量，一个是整个向量的最大连续递增区间长度，一个是单次递增区间长度
+class Solution {
+public:
+    int findLengthOfLCIS(vector<int>& nums) {
+        if(nums.empty()) return 0;
+        int maxAll=1,maxOnce=1;
+        for(int i=1;i<nums.size();++i){
+            if(nums[i]>nums[i-1])     //递增，计数
+                ++maxOnce;
+            else{                   //非递增，重新计数
+                maxAll=max(maxAll,maxOnce);
+                maxOnce=1;
+            }
+        }
+        maxAll=max(maxAll,maxOnce);    //防止整个向量都是递增的，没进else
+        return maxAll;
+    }
+};
