@@ -1,0 +1,23 @@
+//两个递归
+//递归求解左右子树之和
+//递归求解当前节点的tilt和左右子树的tilt
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int sumAll(TreeNode* root){
+        if(!root) return 0;
+        return root->val+sumAll(root->left)+sumAll(root->right);
+    }
+    int findTilt(TreeNode* root) {
+        if(!root) return 0;
+        return abs(sumAll(root->left)-sumAll(root->right))+findTilt(root->left)+findTilt(root->right);
+    }
+};
