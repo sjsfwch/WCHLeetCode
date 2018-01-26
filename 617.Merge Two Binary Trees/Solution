@@ -1,0 +1,26 @@
+//树的题一般都是递归
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void merge(TreeNode* p,TreeNode* q){
+        if(!p&&!q) return;             //都是空节点，返回
+        if(p&&q) p->val+=q->val;       //都是非空节点，值相加
+        if(p->left&&q->left) merge(p->left,q->left);     //左子树都存在，递归合并
+        if(p->right&&q->right) merge(p->right,q->right);  //右子树存在，递归合并
+        if(!p->left&&q->left) p->left=q->left;           //如果p的左子树空而q的左子树不空，合并左子树
+        if(!p->right&&q->right) p->right=q->right;       //如果p的右子树空而q的右子树不空，合并右子树
+    }
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+        if(!t1||!t2) return !t1?t2:t1;     //有一颗树为空
+        merge(t1,t2);
+        return t1;
+    }
+};
