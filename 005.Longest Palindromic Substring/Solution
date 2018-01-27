@@ -1,0 +1,22 @@
+//思路很简单，每次以i为起点，双向查找回文串，记录最大长度和最大长度时的起点位置
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if(s.size()<2) return s;
+        int len=s.size(),start=0,maxlen=1,left,right;
+        for(int i=0;i<s.size()&&len-i>maxlen/2;){      //len-i<max/2时即可停止，说明已经不存在长度超过maxlen的回文串了
+            left=right=i;
+            while(right<len-1&&s[right+1]==s[right]) ++right;  //跳过重复元素,关键，提高效率，能同时处理奇偶情况
+            i=right+1;
+            while(right<len-1&&left>0&&s[left-1]==s[right+1]){--left;++right;}    //寻找回文串
+            if(maxlen<right-left+1){       //更新长度值和起点值
+                start=left;
+                maxlen=right-left+1;
+            }
+        }
+        return s.substr(start,maxlen);
+    }
+};
+
+//还有一种思路，使用unordered_map存储字符和其位置，另写一个judge函数判断是否是回文串
+//每次遇到在map中存在的字符，判断map[s[i]]到i中的字符串是不是回文串，若是，记录起点值和长度值，否则更新map
