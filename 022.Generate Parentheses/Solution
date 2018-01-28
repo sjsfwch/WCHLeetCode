@@ -1,0 +1,18 @@
+//可以看做是二叉树的遍历，添加左右括号相当于向左右孩子遍历
+//只需相左遍历的次数等于向右遍历的次数即可
+class Solution {
+public:
+    void addpar(vector<string> &res,string str,int left,int right){
+        if(left==0&&right==0){      //括号全部添加完毕，插入进res
+            res.emplace_back(str);
+            return;
+        }
+        if(left>0) addpar(res,str+'(',left-1,right);      //还可以添加左括号
+        if(left<right) addpar(res,str+')',left,right-1); //左括号多于右括号时才能添加右括号
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        addpar(res,"",n,n);
+        return res;
+    }
+};
