@@ -1,0 +1,27 @@
+//这个问题可以分解成n个twosum
+//主要难点在于如何去除重复元素
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(),nums.end());     //排序
+        vector<vector<int>> res;
+        for(int i=0;i<nums.size();++i){
+            if(i>0&&nums[i]==nums[i-1])       //第一个元素不能重复
+                continue;
+            int j=i+1,k=nums.size()-1;
+            while(j<k){      //双向查找
+                int s=nums[i]+nums[j]+nums[k];
+                if(s<0) ++j;
+                else if(s>0) --k;
+                else{
+                    res.emplace_back(vector<int>{nums[i],nums[j],nums[k]});
+                    while(j+1<k&&nums[j]==nums[j+1]) ++j;     //跳过重复元素
+                    while(j<k-1&&nums[k]==nums[k-1]) --k;
+                    ++j;
+                    --k;
+                }
+            }
+        }
+        return res;
+    }
+};
