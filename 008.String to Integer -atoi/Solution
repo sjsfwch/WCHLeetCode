@@ -1,0 +1,36 @@
+//题目很简单，但是非常麻烦，需要考虑的问题非常多
+//本代码还可以继续简化，跳过高位的0，正负号判别，都可以拿到for循环外处理
+class Solution {
+public:
+    int myAtoi(string str) {
+        if(str.empty()) return 0;
+        int res=0,start=0,plus=1;
+        bool high0=true;
+        while(str[start]==' ')   //跳过开头的空格
+            ++start;
+        for(int i=start;i<str.size();++i){
+            if(!isdigit(str[i])){                 //非数字
+                if(i==start&&(str[i]=='+'||str[i]=='-')){   //如果是正负号，还可以继续
+                    if(str[i]=='-')              
+                        plus=-1;
+                    continue;
+                }
+                else
+                    return res*plus;
+            }
+            if(res>INT_MAX/10||(res==INT_MAX/10&&str[i]-'0'>7)){   //判别是否会溢出
+                if(plus==1)
+                    return INT_MAX;
+                else
+                    return INT_MIN;
+            }
+            if(high0&&str[i]-'0'==0)     //跳过高位的0
+                continue;
+            else
+                high0=false;
+            res*=10;
+            res+=str[i]-'0';
+        }
+        return res*plus;
+    }
+};
