@@ -1,0 +1,32 @@
+//本题最大的难点就是理解题意，看了半天没看懂怎么变，于是看了讨论区
+/*n=numRows
+Δ=2n-2    1                           2n-1                         4n-3
+Δ=        2                     2n-2  2n                    4n-4   4n-2
+Δ=        3               2n-3        2n+1              4n-5       .
+Δ=        .           .               .               .            .
+Δ=        .       n+2                 .           3n               .
+Δ=        n-1 n+1                     3n-3    3n-1                 5n-5
+Δ=2n-2    n                           3n-2                         5n-4
+*/
+//代码很容易写，就是numRows个字符串，把s中的字母顺着填，反着填，顺着填，直到遍历完毕，最后把所有格子中的串合并即可
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows<=1)
+            return s;
+        vector<string> zigzag(numRows,"");
+        int row=0,step=1;
+        for(auto c:s){
+            zigzag[row]+=c;
+            if(row==0)       //到头了，变换方向
+                step=1;
+            else if(row==numRows-1)
+                step=-1;
+            row+=step;
+        }
+        string res="";
+        for(auto word:zigzag)   //合并串
+            res+=word;
+        return res;
+    }
+};
