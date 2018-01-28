@@ -1,0 +1,25 @@
+//主要要弄清楚罗马数字的表示法
+/*I = 1;
+V = 5;
+X = 10;
+L = 50;
+C = 100;
+D = 500;
+M = 1000;
+其中每两个阶段的之间有一个减法的表示，比如900=CM， C写在M前面表示M-C。
+每次选择能表示的最大值，把对应的字符串连起来。 */
+class Solution {
+public:
+    string intToRoman(int num) {
+        string res;
+        vector<string> symbol={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        vector<int>    value ={1000,900,500,400, 100, 90,  50, 40,  10, 9,   5,  4,   1};
+        for(int i=0;num!=0;++i){       //从大到小选择能表示的最大值
+            while(num>=value[i]){
+                num-=value[i];
+                res+=symbol[i];
+            }
+        }
+        return res;    
+    }
+};
