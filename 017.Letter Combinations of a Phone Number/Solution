@@ -1,0 +1,19 @@
+//遍历digis，不断的在res后面添加当前数字所代表的所有可能的字母
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> res;
+        if(digits.empty()) return res;
+        vector<string> nta={"0","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        res.emplace_back("");
+        for(int i=0;i<digits.size();++i){
+            vector<string> temp;
+            string chars=nta[digits[i]-'0'];
+            for(int j=0;j<res.size();++j)         //穷举加上当前数字后，所有可能的组合，然后重新赋给res
+                for(int k=0;k<chars.size();++k)
+                    temp.emplace_back(res[j]+chars[k]);
+            res=temp;
+        }
+        return res;
+    }
+};
