@@ -1,0 +1,29 @@
+//这题没有任何难度 无非就是两个节点交换，需要保存一下前面的指针pre和后继t，画一下图就很明显了
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(!head||!head->next) return head;
+        ListNode prehead(0);
+        prehead.next=head;
+        ListNode *p=&prehead;
+        while(p->next&&p->next->next){
+            ListNode *pre=p;    //保存指针
+            p=p->next;
+            ListNode *q,*t;
+            q=p->next;       
+            t=p->next->next;
+            pre->next=q;    //交换位置
+            q->next=p;
+            p->next=t;
+        }
+        return prehead.next;
+    }
+};
