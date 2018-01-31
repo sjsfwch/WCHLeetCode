@@ -1,0 +1,17 @@
+//申请3个9*9数组，每一行分别存储每一行，每一列，每一个小盒子里的数的值
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        int used1[9][9]={0},used2[9][9]={0},used3[9][9]={0};
+        for(int i=0;i<board.size();++i)
+            for(int j=0;j<board[0].size();++j){
+                if(board[i][j]!='.'){
+                    int num=board[i][j]-'0'-1,k=i/3*3+j/3;  //将9*9的坐标变换为对应小盒子的坐标，精辟
+                    if(used1[i][num]||used2[j][num]||used3[k][num])   //说明有重复的数
+                        return false;
+                    used1[i][num]=used2[j][num]=used3[k][num]=1;   标记出现的数
+                }
+            }
+        return true;
+    }
+};
