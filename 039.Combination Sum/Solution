@@ -1,0 +1,22 @@
+//这题采用递归的思想做，分而治之
+class Solution {
+public:
+    vector<vector<int>> res;
+    void Sum(vector<int>& candidates,int target,vector<int> &solution,int begin){
+        if(target==0){                    //target等于0时，说明solution里的元素和等于target，加入res
+            res.push_back(solution);
+            return;
+        }
+        for(int i=begin;i!=candidates.size()&&target>=candidates[i];++i){   //遍历整个candidates
+            solution.push_back(candidates[i]);              //加入一个元素
+            Sum(candidates,target-candidates[i],solution,i);    //递归求解
+            solution.pop_back();       //弹出，继续下一项
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        vector<int> solution;
+        Sum(candidates,target,solution,0);
+        return res;
+    }
+};
