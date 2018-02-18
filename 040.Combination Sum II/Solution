@@ -1,0 +1,25 @@
+//思路跟上一题一模一样，唯一不同的是需要剔除重复元素
+
+class Solution {
+public:
+    vector<vector<int>> res;
+    void Sum(vector<int> &candidates,int target,vector<int> &solution,int begin){
+        if(target==0){
+            res.push_back(solution);
+            return;
+        }
+        for(int i=begin;i<candidates.size()&&target>=candidates[i];++i){
+            if((candidates[i]!=candidates[i-1])||i==begin){        //剔除重复元素    i=begin的时候说明第一次用这个元素，否则若两个相等，剔除
+                solution.push_back(candidates[i]);
+                Sum(candidates,target-candidates[i],solution,i+1);   //注意beign=i+1
+                solution.pop_back();
+            }
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        vector<int> solution;
+        Sum(candidates,target,solution,0);
+        return res;
+    }
+};
