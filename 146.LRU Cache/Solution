@@ -1,0 +1,38 @@
+//用一个list做cache区，并不断把访问的元素放到首部
+//unorder_map用来访问元素，提高访问效率
+class LRUCache {
+    typedef pair<int, int> cache;
+private:
+    int _capacity;
+    list<cache> Cache;
+    unordered_map<int, list<cache>::iterator> Pointer;
+public:
+    LRUCache(int capacity) {
+        _capacity=capacity;
+    }
+    
+    int get(int key) {
+        auto it = Pointer.find(key);
+        if(it == Pointer.end())
+            return -1;
+        else{
+            Cache.splice(Cache.begin(), Cache, it->second);  //骚操作，把改元素放到首位
+            return it->second->second;
+        }
+    }
+    
+    void put(int key, int value) {
+        auto it = Pointer.find(key);
+        if(it!=Pointer.end()){
+            it->second->second = value;
+            Cache.splice(Cache.begin(), Cache, it->second);
+            return;
+        }
+        Cache.push_front(pair<int, int>(key, value));
+        Pointer[key] = Cache.begin();
+        if(Cache.size() > _capacity){
+            Pointer.erase(Cache.back().first);
+            Cache.pop_back();
+        }
+    }
+};
