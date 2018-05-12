@@ -1,0 +1,38 @@
+//主要思路就是利用map的自动排序性，把所有节点的值作为key放入map，
+//需要注意的是，由于存在重复节点，所以value可以用一个向量构成，存储所有值为key的指针
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        ListNode* head = new ListNode(0);
+        ListNode*p = head;
+        map<int, vector<ListNode*>> table;
+        for (auto it : lists){
+            while (it){
+                if (!table.count(it->val)){
+                    vector<ListNode*> temp;
+                    temp.push_back(it);
+                    table[it->val] = temp;
+                }
+                else{
+                    table[it->val].push_back(it);
+                }
+                it = it->next;
+            }
+        }
+        for (auto it : table){
+            for (auto iit : it.second){
+                p->next = iit;
+                p = p->next;
+            }
+        }
+        return head->next;
+    }
+};
