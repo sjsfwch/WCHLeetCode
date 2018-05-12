@@ -1,0 +1,37 @@
+//这题非常精妙，使用两个map来做
+//第一个map存储所有的words，第二个map用来匹配，如果匹配，将序号加入res
+//由于所有的words长度一样，所以我们可以从i开始不断的截取长度为words[0].size()的子串进行匹配
+
+
+class Solution {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) {
+        vector<int> res;
+        if (s.empty() || words.empty())
+            return res;
+        unordered_map<string, int> table;
+        for (auto it : words){
+            table[it]++;
+        }
+        int len = words[0].size(), num = words.size();
+        int finish=s.size()-num*len;    //需要注意string.size()的返回值是size_type，在标准库里是无符号数
+        for (int i = 0; i <= finish; ++i){
+            if(i>=s.size()+len*num)
+                break;
+            bool success = true;
+            unordered_map<string, int> temp;
+            for (int j = 0; j < num; ++j){
+                string stemp = s.substr(i + j*len, len);
+                if (table.count(stemp) && temp[stemp]<table[stemp])
+                    temp[stemp]++;
+                else{
+                    success = false;
+                    break;
+                }
+            }
+            if (success)
+                res.push_back(i);
+        }
+        return res;
+    }
+};
