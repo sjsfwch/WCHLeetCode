@@ -1,0 +1,41 @@
+//实在不会，看了讨论区大神的动态规划思想，自己写的代码
+//定义一个longest向量，longest[i]的值表示以s[i]结尾的匹配个数
+//遍历s，显然，任何一个以'('结尾的括号字符串都不匹配，此时longest[i]=0
+//当s[i]==')'时分两种情况
+//第一种，s[i-1]=='('此时这两个串匹配，因此longest[i]=longest[i-2]+2
+//第二种，s[i-1]==')'此时向前查找longest[i-1]-1个看是否匹配，如果匹配longest[i]=longest[i-1]+2+longest[i-longest[i-1]-2]
+//如果想不通，在纸上写几个，手推几种情况即可
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int res = 0;
+        vector<int> longest(s.size(), 0);
+        for (int i = 0; i < s.size(); ++i){
+            switch (s[i])
+            {
+            case '(':
+                longest[i] = 0;
+                break;
+            case ')':
+                if (i - 1 >= 0){
+                    if (s[i - 1] == '('){
+                        longest[i] = i - 2 >= 0 ? longest[i - 2] + 2 : 2;
+                    }
+                    else{
+                        if (i - longest[i - 1] - 1 >= 0 && s[i - longest[i - 1] - 1] == '(')
+                            longest[i] = i - longest[i - 1] - 2 >= 0 ?
+                            longest[i - 1] + 2 + longest[i - longest[i - 1] - 2]
+                            : longest[i - 1] + 2;
+                    }
+                }
+                break;
+            default:
+                break;
+            }
+        }
+        for (auto i : longest)
+            res = i > res ? i : res;
+        return res;
+    }
+};
