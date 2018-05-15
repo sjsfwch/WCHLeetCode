@@ -1,0 +1,20 @@
+//核心思想，把矮的补高，再计算补高后的面积减去原来的面积
+
+class Solution {
+   public:
+    int trap(vector<int>& height) {
+        int n = height.size(), maxlHeight = 0, maxrHeight = 0;
+        vector<int> lheight(n, 0); //存储从左边看到目前为止最高的高度
+        vector<int> rheight(n, 0); //存储从右边看到目前为止最高的高度
+        int res = 0;
+        for (int i = 0; i < n; ++i) {
+            maxlHeight = max(maxlHeight, height[i]);
+            maxrHeight = max(maxrHeight, height[n - i - 1]);
+            lheight[i] = maxlHeight;
+            rheight[n - i - 1] = maxrHeight;
+        }
+        for (int i = 0; i < n; ++i) 
+            res += min(lheight[i], rheight[i]) - height[i]; //左右最高高度取较小值不全，然后减去本来高度即为积水的面积
+        return res;
+    }
+};
