@@ -1,0 +1,65 @@
+//边移位边计算
+//num2从最低位依次乘上num1，然后num1后加个0
+
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        string res = "";
+        string resOnce = "";
+        if(num1[0]=='0'||num2[0]=='0')
+            return "0";
+        string multinum = num1;
+        for (int i = num2.size() - 1; i > -1; --i){
+            resOnce = multiplyOnce(num1, (int)(num2[i] - '0'));
+            addOnce(res, resOnce);
+            num1 = num1 + "0";
+        }
+        return res;
+    }
+
+    void addOnce(string &res, string add){
+        int n = res.size() - 1, m = add.size() - 1;
+        int carry = 0, rem = 0;
+        while (n > -1 && m > -1){
+            int num1 = (int)res[n--] - '0';
+            int num2 = (int)add[m--] - '0';
+            rem = (num1 + num2 + carry) % 10;
+            carry = (carry + num1 + num2) / 10;
+            res[n + 1] = (char)(rem + '0');
+        }
+        while (n > -1){
+            int num1 = (int)res[n--] - '0';
+            rem = (num1 + carry) % 10;
+            carry = (num1 + carry) / 10;
+            res[n + 1] = (char)(rem + '0');
+        }
+        if (m > -1){
+            int k = m;
+            while (k > -1 && carry){
+                int num1 = (int)add[k--] - '0';
+                rem = (num1 + carry) % 10;
+                carry = (num1 + carry) / 10;
+                add[k + 1] = (char)(rem + '0');
+            }
+            res.insert(0, add.substr(0, m + 1));
+
+        }
+        if (carry)
+            res.insert(0, 1, '0' + carry);
+    }
+
+    string multiplyOnce(string num1, int n){
+        if (!n)
+            return "";
+        int carry = 0, rem = 0;
+        for (int i = num1.size() - 1; i > -1; --i){
+            int num = (int)num1[i] - 48;
+            rem = (carry + num*n) % 10;
+            carry = (carry + num*n) / 10;
+            num1[i] = (char)(rem + '0');
+        }
+        if (carry)
+            num1.insert(0, 1, '0' + carry);
+        return num1;
+    }
+};
