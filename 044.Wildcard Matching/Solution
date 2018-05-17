@@ -1,0 +1,24 @@
+//自己的做法始终无法解决*号对多个相同字符的匹配问题，学习了讨论区大神的解法
+//核心思想就是回溯加双指针推进
+//对于*的处理就是不断的尝试 匹配0个字符，如果不行，回溯，匹配两个，不行，回溯，匹配三个....
+class Solution {
+   public:
+    bool isMatch(string s, string p) {
+        int i = 0, j = 0, starts =0, startp = -1;
+        while (i < s.size()) {     //p串永远不会越界
+            if (s[i] == p[j] || p[j] == '?') {
+                ++i;
+                ++j;
+            } else if (p[j] == '*') {
+                startp = j++;   //记录指针位置
+                starts = i;
+            } else if (startp!=-1) {  //不断尝试匹配* 不断回溯
+                i = ++starts;
+                j = startp + 1;
+            } else
+                return false;
+        }
+        while (p[j++] == '*'); 遍历p串剩下的字符，如果存在非*字符，则失败
+        return j == p.size() + 1;
+    }
+};
