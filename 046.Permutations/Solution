@@ -1,0 +1,23 @@
+//递归求解
+
+class Solution {
+public:
+    vector<vector<int>> res;
+    vector<vector<int>> permute(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); ++i) {
+            vector<int> tnums = nums;
+            swap(tnums[0], tnums[i]); //不断的将当前数和后面的数（包括自己）交换并递归
+            permuteAsist(tnums, 1);
+        }
+        return res;
+    }
+
+    void permuteAsist(vector<int> nums, int Idx) {
+        if (Idx == nums.size())                 //递归到结尾
+            res.emplace_back(nums);
+        for (int i = Idx; i < nums.size();++i){
+            swap(nums[Idx], nums[i]);         //不断的将当前数和后面的数（包括自己）交换并递归
+            permuteAsist(nums, Idx + 1);
+        }
+    }
+};
