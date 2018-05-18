@@ -1,0 +1,19 @@
+//将这个问题当做图来看，利用BFS算法进行求解
+
+class Solution {
+   public:
+    int jump(vector<int>& nums) {
+        if (nums.size() <= 1)
+            return 0;
+        int steps = 0, curmax = 0, nextmax = 0, i = 0;
+        while (1) {
+            steps++;//前进一步
+            for (; i <= curmax; i++) {
+                nextmax = max(nextmax, nums[i] + i); //找出当前步加下一步能走得最远的点，需要自己尝试理解。
+                if (nextmax >= nums.size() - 1)
+                    return steps;
+            }
+            curmax = nextmax;
+        }
+    }
+};
