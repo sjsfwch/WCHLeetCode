@@ -13,7 +13,7 @@ public:
     }
 
     void permuteAsist(vector<int> nums, int Idx) {
-        if (Idx == nums.size())                 //递归到结尾
+        if (Idx == nums.size() - 1)                 //递归到结尾
             res.emplace_back(nums);
         for (int i = Idx; i < nums.size();++i){
             swap(nums[Idx], nums[i]);         //不断的将当前数和后面的数（包括自己）交换并递归
