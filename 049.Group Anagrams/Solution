@@ -1,0 +1,22 @@
+//很简单的题，用一个map标记该插入的编号
+//先排序再查找能解约很多时间
+
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, int> table;
+        vector<vector<string>> res;
+        for(auto s:strs){
+            string ts = s;
+            sort(ts.begin(), ts.end());
+            if(table.count(ts))
+                res[table[ts]].emplace_back(s);
+            else{
+                res.emplace_back(vector<string>{s});
+                table[ts] = res.size() - 1;
+            }
+        }
+        return res;
+    }
+};
