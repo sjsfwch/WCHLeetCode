@@ -1,0 +1,21 @@
+//详见邓俊辉的数据结构
+//核心思想，分治法，注意要处理INT_MIN
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+        if (n == INT_MIN) {
+            double temp = myPow(x, n >> 1);
+            return temp * temp;
+        }
+        if (n == 0)
+            return 1;
+        if (n < 0)
+            return 1 / myPow(x, -n);
+        double temp = myPow(x, n >> 1);
+        if (n % 2 == 0)
+            return temp * temp;
+        else
+            return temp * temp * x;
+    }
+};
