@@ -1,0 +1,44 @@
+//本题可以调用056的算法解决，直接将newInterval push进intervals,然后调用056的算法，时间复杂度nlogn
+//解二，因为这次的intervals是已经根据start排好序了，因此我们可以直接使用056算法核心部分进行合并，不过需要注意的是newInterval
+//当然也可以申请一个新数组，把intervals的所有元素和newIntervals都按序push进去，然后进行合并，时间复杂度均为n
+
+
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    vector<Interval> insert(vector<Interval>& intervals, Interval newInterval) {
+        vector<Interval> res;
+        if(intervals.empty())                            //空或者newInterval比所有间隔都小
+            return vector<Interval>{newInterval};
+        if(intervals[intervals.size()-1].end<newInterval.start){
+            intervals.push_back(newInterval);
+            return intervals;
+        }
+        Interval cur;
+        int i=0;
+        while(i<intervals.size()&&intervals[i].end<newInterval.start){   //找出newIterval应该插入的位置
+            res.push_back(intervals[i]);
+            ++i;
+        }
+        cur=intervals[i].start<newInterval.start?intervals[i]:newInterval;    判断newIterval是不是在第一位
+        while(newInterval.end>=intervals[i].start&&i<intervals.size()){
+            Interval temp(cur.start,max(intervals[i].end,newInterval.end));    //不断合并
+            cur=temp;
+            ++i;
+        }
+        res.push_back(cur);
+        while(i<intervals.size()){         //处理剩余Interval
+            res.push_back(intervals[i]);
+            ++i;
+        }
+        return res;
+    }
+};
