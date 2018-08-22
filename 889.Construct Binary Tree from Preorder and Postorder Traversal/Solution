@@ -1,0 +1,59 @@
+//递归构造，先序的第二个节点必为左孩子，后序的倒数第二个节点必为右孩子，若两个相同，则只有一个孩子，随便左右
+
+
+/**
+* Definition for a binary tree node.
+* struct TreeNode {
+*     int val;
+*     TreeNode *left;
+*     TreeNode *right;
+*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+* };
+*/
+class Solution {
+public:
+    TreeNode* constructFromPrePost(vector<int>& pre, vector<int>& post) {
+        TreeNode* root = new TreeNode(pre[0]);
+        int n = pre.size();
+        construction(pre, post, 1, n, 0, n - 1, root);  //区间形式[i,j)
+        return root;
+    }
+
+    vector<int> getSubVec(vector<int>& pre, vector<int>& post, int preLo, int preHi, int postLo, int postHi, int left, int right) {
+        vector <int> subVec;
+        for (int i = preLo; i < preHi; i++){
+            if (pre[i] == right){
+                subVec.push_back(i);
+                break;
+            }
+        }
+
+        for (int j = postLo; j < postHi - 1; j++){
+            if (post[j] == left){
+                subVec.push_back(j);
+                break;
+            }
+        }
+        return subVec;
+    }
+
+
+    void construction(vector<int>& pre, vector<int>& post, int preLo, int preHi, int postLo, int postHi, TreeNode* root){
+        if (preLo >= preHi)
+            return;
+        if (pre[preLo] == post[postHi - 1]){               //当前节点只有一个孩子的情况，设为右孩子
+            TreeNode* leftChild = new TreeNode(pre[preLo]);
+            root->left = leftChild;
+            construction(pre, post, preLo + 1, preHi, postLo, postHi - 1, root->left);
+        }
+        else{
+            TreeNode* leftChild = new TreeNode(pre[preLo]);        //有两个孩子
+            TreeNode* rightChild = new TreeNode(post[postHi - 1]);
+            root->left = leftChild;
+            root->right = rightChild;
+            vector<int> sub = getSubVec(pre, post, preLo, preHi, postLo, postHi, pre[preLo], post[postHi - 1]);   //找到pre和post中的左、右子树集合的坐标
+            construction(pre, post, preLo + 1, sub[0], postLo, sub[1], root->left);
+            construction(pre, post, sub[0] + 1, preHi, sub[1] + 1, postHi - 1, root->right);
+        }
+    }
+};
