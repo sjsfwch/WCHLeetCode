@@ -1,0 +1,29 @@
+使用动态规划，假设A先取，B后取
+dp[i][j]是在堆[i,j]中A能取到的最大值比B能取到的最大值大的数值
+所以有当A取数时，即剩下的个数为偶数 dp[i][j]=max(getDP(piles,lo+1,hi,dp)+piles[lo],getDP(piles,lo,hi-1,dp)+piles[hi]) 
+当B取数时 dp[i][j]=min(getDP(piles,lo+1,hi,dp)-piles[lo],getDP(piles,lo,hi-1,dp)-piles[hi])
+
+
+
+class Solution {
+public:
+    bool stoneGame(vector<int>& piles) {
+        int n=piles.size();
+        vector<vector<int>> dp(n,vector<int>(n,0));
+        return getDP(piles,0,n-1,dp)>0;
+    }
+    
+    int getDP(vector<int>&piles,int lo,int hi,vector<vector<int>>& dp){
+        if(lo==hi)
+            return 0;
+        if(dp[lo][hi]>0)
+            return dp[lo][hi];
+        int res=0;
+        if((hi-lo+1)&1)
+            res=min(getDP(piles,lo+1,hi,dp)-piles[lo],getDP(piles,lo,hi-1,dp)-piles[hi]);
+        else
+            res=max(getDP(piles,lo+1,hi,dp)+piles[lo],getDP(piles,lo,hi-1,dp)+piles[hi]);
+        dp[lo][hi]=res;
+        return res;
+    }
+};
