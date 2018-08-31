@@ -1,0 +1,52 @@
+//用点和斜率确定一条直线，计算当前点与之后的点的所有斜率，相同的说明在一条直线上
+//需要注意重合的点，重合则overlap+1，即以当前点为起点的所有直线上的点加一
+
+
+
+/**
+ * Definition for a point.
+ * struct Point {
+ *     int x;
+ *     int y;
+ *     Point() : x(0), y(0) {}
+ *     Point(int a, int b) : x(a), y(b) {}
+ * };
+ */
+class Solution {
+public:
+    int maxPoints(vector<Point>& points) {
+        if(points.empty())
+            return 0;
+        int maxCount=0,maxOnce=0;
+        int overLap=1;
+        for(int i=0;i<points.size();++i){
+            map<pair<int,int>,int> lines;
+            for(int j=i+1;j<points.size();++j){
+                if(points[i].x==points[j].x&&points[i].y==points[j].y){
+                    overLap++;
+                    continue;
+                }
+                pair<int,int> p;
+                if(points[i].x==points[j].x){
+                    p=make_pair(INT_MAX,0);
+                }
+                else{
+                    int xx=points[i].x-points[j].x,yy=points[i].y-points[j].y;
+                    int GCD=gcd(xx,yy);
+                    p=make_pair(yy/GCD,xx/GCD);
+                }
+                lines[p]++;
+                maxOnce=lines[p]>maxOnce?lines[p]:maxOnce;
+            }
+            maxOnce+=overLap;
+            maxCount=maxOnce>maxCount?maxOnce:maxCount;
+            maxOnce=0;
+            overLap=1;
+        }
+        return maxCount;
+    }
+    
+    int gcd(int a,int b){
+        return b==0?a:gcd(b,a%b);
+    }
+};
