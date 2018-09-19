@@ -1,0 +1,25 @@
+//根据起始和结束的时间构造一个map，并用end作为key
+//查找第一个可以插入start+1的元素值，并且与其second(start)作比对，没重合则可以插入
+
+
+class MyCalendar {
+public:
+    map<int,int> things;
+    MyCalendar() {
+        
+    }
+    
+    bool book(int start, int end) {
+        auto it=things.lower_bound(start+1);
+        if(it!=things.end()&&it->second<end)
+            return false;
+        things[end]=start;
+            return true;
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar obj = new MyCalendar();
+ * bool param_1 = obj.book(start,end);
+ */
